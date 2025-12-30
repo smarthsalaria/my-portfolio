@@ -48,7 +48,7 @@
       "role": "EMS Engineer",
       "period": "June 2025 - Present",
       "description": "Developing the EMS Controller for the BESS Utily Grid Projects from business requirements, designing to development.",
-      "logo": "/logos/premier.jpg"
+      "logo": "/my-portfolio/logos/premier.jpg"
     },
     {
       "id": 2,
@@ -56,7 +56,7 @@
       "role": "Control System Engineer",
       "period": "Jan 2025 - Apr 2025",
       "description": "Worked on the Project Engineering for the 70MW/140MWh Battery Energy Storage System.",
-      "logo": "/logos/anvi.jpg"
+      "logo": "/my-portfolio/logos/anvi.jpg"
     },
     {
       "id": 3,
@@ -64,7 +64,7 @@
       "role": "Asociate Engineer",
       "period": "Jan 2025 - Apr 2025",
       "description": "Worked on the Project Engineering for the 35MW + 57MWh Solar + Battery Hybrid Power Plant, 210MW + 30MVar Solar + Capbank Power Plant, 700MW Solar Power Plant.",
-      "logo": "/logos/lnt.svg"
+      "logo": "/my-portfolio/logos/lnt.svg"
     }
   ]
 }

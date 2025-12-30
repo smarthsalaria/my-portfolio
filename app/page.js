@@ -3,7 +3,7 @@ import { useState } from 'react';
 import BentoGrid from '@/components/BentoGrid';
 import Card from '@/components/Card';
 import Intro from '@/components/Intro'; 
-import resumeData from '@/data/resume.json';
+import resumeData from '@/my-portfolio/data/resume.json';
 import { MapPin, Briefcase, Cpu, Server, Github, Linkedin, Mail, Phone, ExternalLink } from 'lucide-react';
 
 export default function Home() {
