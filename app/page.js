@@ -38,7 +38,7 @@ export default function Home() {
                  <a href={resumeData.personal.socials.mobile} className="p-2 bg-gray-800 rounded-full hover:bg-purple-500 hover:text-white transition"><Phone size={20} /></a>
 
                  <button className="bg-blue-600 px-8 py-2 rounded-full font-bold hover:bg-blue-500 transition shadow-lg shadow-blue-500/30 text-sm ml-auto">
-                   <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">View CV</a>
+                   <a href="/my-portfolio/public/resume.pdf" target="_blank" rel="noopener noreferrer">View CV</a>
                  </button>
               </div>
             </Card>
