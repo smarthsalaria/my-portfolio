@@ -47,6 +47,8 @@
       "company": "Premier Energies Limited",
       "role": "EMS Engineer",
       "period": "June 2025 - Present",
+      "startDate": "2025-06",
+      "endDate": "present",
       "description": "Developing the EMS Controller for the BESS Utily Grid Projects from business requirements, designing to development.",
       "logo": "/my-portfolio/logos/premier.jpg"
     },
@@ -55,6 +57,8 @@
       "company": "ANVI POWER INDUSTRIES PRIVATE LIMITED",
       "role": "Control System Engineer",
       "period": "Jan 2025 - Apr 2025",
+      "startDate": "2025-01",
+      "endDate": "2025-04",
       "description": "Worked on the Project Engineering for the 70MW/140MWh Battery Energy Storage System.",
       "logo": "/my-portfolio/logos/anvi.jpg"
     },
@@ -62,7 +66,9 @@
       "id": 3,
       "company": "LARSON & TOUBRO LIMITED",
       "role": "Asociate Engineer",
-      "period": "Jan 2025 - Apr 2025",
+      "period": "Jul 2022 - Dec 2024",
+      "startDate": "2022-07",
+      "endDate": "2024-12",
       "description": "Worked on the Project Engineering for the 35MW + 57MWh Solar + Battery Hybrid Power Plant, 210MW + 30MVar Solar + Capbank Power Plant, 700MW Solar Power Plant.",
       "logo": "/my-portfolio/logos/lnt.svg"
     }

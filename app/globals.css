@@ -1,11 +1,9 @@
 @import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @layer utilities {
   /* Define a custom class named '.custom-scrollbar' */
+  
   .custom-scrollbar::-webkit-scrollbar {
     width: 6px; /* Thin width */
   }
