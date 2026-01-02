@@ -1,43 +1,52 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
+import { FileWarning } from 'lucide-react'; // Import an icon for the error state
 
-// Configure the worker
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 export default function PdfViewer({ url }) {
   const [width, setWidth] = useState(600);
+  const [hasError, setHasError] = useState(false);
 
-  // Responsive Width: Calculate only on the client side
+  // Reset error state when the URL changes (user clicks a new cert)
   useEffect(() => {
-    const handleResize = () => {
-       // Subtract 40px for padding, cap at 800px
-       setWidth(Math.min(window.innerWidth - 40, 800));
-    };
+    setHasError(false);
+  }, [url]);
 
-    // Set initial width
+  useEffect(() => {
+    const handleResize = () => setWidth(Math.min(window.innerWidth - 40, 800));
     handleResize();
-
-    // Listen for window resize
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // 1. ERROR STATE: If PDF fails, show this text box
+  if (hasError) {
+    return (
+      <div className="flex flex-col items-center justify-center p-12 text-center bg-gray-800/50 rounded-xl border border-gray-700 border-dashed w-full h-[400px]">
+        <div className="bg-gray-800 p-4 rounded-full mb-4">
+            <FileWarning className="w-10 h-10 text-gray-500" />
+        </div>
+        <h3 className="text-xl font-bold text-gray-300">Document Not Available</h3>
+        <p className="text-gray-500 text-sm mt-2 max-w-xs">
+          The file could not be loaded or has been moved.
+        </p>
+      </div>
+    );
+  }
+
+  // 2. NORMAL STATE: Show the PDF
   return (
     <div className="flex justify-center">
       <Document
         file={url}
+        onLoadError={() => setHasError(true)} // <--- Triggers the Error State above
         loading={
           <div className="text-white animate-pulse flex flex-col items-center py-10">
             <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-2"></div>
-            <p className="text-sm">Rendering PDF...</p>
+            <p className="text-sm">Loading Document...</p>
           </div>
-        }
-        error={
-            <div className="text-red-400 text-sm text-center py-10">
-                <p>Preview Unavailable.</p>
-                <p className="text-xs text-gray-500">Please download the file to view it.</p>
-            </div>
         }
       >
         <Page 

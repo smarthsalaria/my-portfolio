@@ -25,6 +25,10 @@ export default function DataFiles() {
   const [selectedCert, setSelectedCert] = useState(null);
   
   const [toastMsg, setToastMsg] = useState(''); 
+  const [imgError, setImgError] = useState(false);
+  useEffect(() => {
+    setImgError(false);
+  }, [selectedCert]);
 
   useEffect(() => {
     if (toastMsg) {
@@ -89,7 +93,7 @@ export default function DataFiles() {
       date: "2024",
       icon: <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" className="w-8 h-8" />,
       link: "https://learn.microsoft.com/api/credentials/share/en-us/smarthsalaria/D926472C09CAEE59?sharingId=79851582C16A4478", 
-      file: "/certificates/az900.pdf",
+      file: "/my-portfolio/certificates/az900.pdf",
       color: "border-blue-500"
     },
     {
@@ -101,7 +105,7 @@ export default function DataFiles() {
       date: "2024 - 2026",
       icon: <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" className="w-8 h-8" />,
       link: "https://learn.microsoft.com/api/credentials/share/en-us/smarthsalaria/F27B9E6BCA6B1292?sharingId=79851582C16A4478", 
-      file: "/certificates/az104.pdf",
+      file: "/my-portfolio/certificates/az104.pdf",
       color: "border-blue-500"
     },
     {
@@ -113,7 +117,7 @@ export default function DataFiles() {
       date: "2024",
       icon: <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Coursera-Logo_600x600.svg" alt="Coursera" className="w-8 h-8 rounded-full bg-white p-1" />,
       link: "https://coursera.org/share/e7a2d93a3836a18253e2cf4db4248668",
-      file: "/certificates/vc.pdf",
+      file: "/my-portfolio/certificates/vc.pdf",
       color: "border-blue-500"
     },
     {
@@ -125,7 +129,7 @@ export default function DataFiles() {
       date: "2024",
       icon: <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Coursera-Logo_600x600.svg" alt="Coursera" className="w-8 h-8 rounded-full bg-white p-1" />,
       link: "https://coursera.org/share/1075012ad3e58d26580053b8e67461d1",
-      file: "/certificates/br.pdf",
+      file: "/my-portfolio/certificates/br.pdf",
       color: "border-blue-500"
     },
     {
@@ -137,7 +141,7 @@ export default function DataFiles() {
       date: "2025",
       icon: <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Coursera-Logo_600x600.svg" alt="Coursera" className="w-8 h-8 rounded-full bg-white p-1" />,
       link: "https://coursera.org/share/5ff22c804e577c308da646e6779e9908",
-      file: "/certificates/ar.pdf",
+      file: "/my-portfolio/certificates/ar.pdf",
       color: "border-blue-500"
     },
 
@@ -150,7 +154,7 @@ export default function DataFiles() {
       date: "2018 - 2022",
       icon: <img src='/my-portfolio/logos/culogo_1.png' alt="Chandigarh University Logo" className='w-8 h-12 bg-gray p-0 '/>,
       link: "#", 
-      file: "/certificates/cu.jpg",
+      file: "/my-portfolio/certificates/cu.jpg",
       color: "border-gray-700"
     },
     {
@@ -162,7 +166,7 @@ export default function DataFiles() {
       date: "2021",
       icon: <Scroll className="w-8 h-8 text-emerald-400" />,
       link: "ude.my/UC-48332433-b730-42d1-a3de-f986cf3e9d3a", 
-      file: "/certificates/python.pdf",
+      file: "/my-portfolio/certificates/python.pdf",
       color: "border-emerald-500"
     },
     {
@@ -174,7 +178,7 @@ export default function DataFiles() {
       date: "2020",
       icon: <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Coursera-Logo_600x600.svg" alt="Coursera" className="w-8 h-8 rounded-full bg-white p-1" />,
       link: "https://coursera.org/share/4fcd22d2fcd377d4f2b61f5f69945065", 
-      file: "/certificates/algo.pdf",
+      file: "/my-portfolio/certificates/algo.pdf",
       color: "border-emerald-500"
     },
 
@@ -187,7 +191,7 @@ export default function DataFiles() {
       date: "2021",
       icon: <Scroll className="w-8 h-8 text-emerald-400" />,
       link: "#",
-      file: "/certificates/iot.jpg",
+      file: "/my-portfolio/certificates/iot.jpg",
       color: "border-emerald-500"
     },
     {
@@ -199,7 +203,7 @@ export default function DataFiles() {
       date: "2020",
       icon: <Scroll className="w-8 h-8 text-emerald-400" />,
       link: "#",
-      file: "/certificates/Web.pdf",
+      file: "/my-portfolio/certificates/Web.pdf",
       color: "border-emerald-500"
     }
   ];
@@ -585,23 +589,31 @@ export default function DataFiles() {
                {/* CONTENT VIEWER AREA */}
                <div className="flex-1 bg-gray-800/50 relative flex items-center justify-center overflow-auto p-4 custom-scrollbar">
                   
-                  {/* CASE 1: PDF Handling (Dynamic Component) */}
+                  {/* CASE 1: PDF Handling (Handled by Component) */}
                   {selectedCert.file.endsWith('.pdf') ? (
                     <div className="max-w-full max-h-full w-full">
-                       {/* PASS THE FILE URL TO THE COMPONENT */}
                        <PdfViewer url={selectedCert.file} />
                     </div>
                   ) : (
                     /* CASE 2: Image Handling */
-                    <img 
-                        src={selectedCert.file} 
-                        alt={selectedCert.title} 
-                        className="max-w-full max-h-full object-contain shadow-2xl rounded-lg"
-                        onError={(e) => {
-                            e.target.onerror = null; 
-                            e.target.src="https://placehold.co/600x400?text=File+Not+Found";
-                        }}
-                    />
+                    <>
+                        {/* A. If Error: Show Text */}
+                        {imgError ? (
+                            <div className="flex flex-col items-center justify-center p-12 text-center border border-gray-700 border-dashed rounded-xl">
+                                <AlertTriangle className="w-10 h-10 text-gray-500 mb-4" />
+                                <h3 className="text-xl font-bold text-gray-300">Image Not Available</h3>
+                                <p className="text-gray-500 text-sm mt-2">Preview cannot be displayed.</p>
+                            </div>
+                        ) : (
+                            /* B. If Normal: Show Image */
+                            <img 
+                                src={selectedCert.file} 
+                                alt={selectedCert.title} 
+                                className="max-w-full max-h-full object-contain shadow-2xl rounded-lg"
+                                onError={() => setImgError(true)} // <--- Triggers the text view
+                            />
+                        )}
+                    </>
                   )}
                </div>
 
