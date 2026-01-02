@@ -108,7 +108,7 @@ export default function Home() {
                  <a href={resumeData.personal.socials.email} className="p-2 bg-gray-800 rounded-full hover:bg-emerald-500 hover:text-white transition"><Mail size={20} /></a>
                  <a href={resumeData.personal.socials.mobile} className="p-2 bg-gray-800 rounded-full hover:bg-purple-500 hover:text-white transition"><Phone size={20} /></a>
 
-                 <button className="bg-blue-600 px-8 py-2 rounded-full font-bold hover:bg-blue-500 transition shadow-lg shadow-blue-500/30 text-sm ml-auto">
+                 <button className="bg-blue-600 px-6 py-2 rounded-full font-bold hover:bg-blue-500 transition shadow-lg  shadow-blue-500/30 text-sm ml-auto">
                    <a href="/my-portfolio/resume.pdf" target="_blank" rel="noopener noreferrer">View CV</a>
                  </button>
               </div>
@@ -167,7 +167,7 @@ export default function Home() {
                         <p className="font-bold text-white text-sm md:text-base">{edu.degree}</p>
                         <p className="text-xs md:text-sm text-gray-400">{edu.school}</p>
                     </div>
-                    <span className="text-xs md:text-sm text-blue-400 bg-blue-900/30 px-2 md:px-3 py-1 md:py-2 rounded whitespace-nowrap">{edu.year}</span>
+                    <span className="text-xs md:text-sm text-blue-400 bg-blue-900/30 px-2 md:px-3 py-1 md:py-2 rounded-full whitespace-nowrap">{edu.year}</span>
                  </div>
                ))}
             </Card>
@@ -264,8 +264,8 @@ export default function Home() {
            </div>
 
            {/* Decorative Background Icon */}
-           <div className="absolute bottom-0 right-0 opacity-[0.03] pointer-events-none group-hover:opacity-[0.06] transition duration-500">
-              <Award size={120} />
+           <div className="absolute bottom-0 top-16 right-2 opacity-[0.03] pointer-events-none group-hover:opacity-[0.06] transition duration-500">
+              <Award size={80} />
            </div>
         </Card>
           </BentoGrid>
