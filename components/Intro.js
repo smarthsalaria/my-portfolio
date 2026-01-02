@@ -9,9 +9,9 @@ export default function Intro({ onComplete }) {
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
-    // Show text for 2 seconds
+    
     const timer = setTimeout(() => setIsExiting(true), 2000);
-    // Remove intro after 3.5 seconds
+    
     const finish = setTimeout(() => onComplete(), 3500);
     return () => { clearTimeout(timer); clearTimeout(finish); };
   }, [onComplete]);

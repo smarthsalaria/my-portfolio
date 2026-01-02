@@ -9,7 +9,6 @@ export default function PdfViewer({ url }) {
   const [width, setWidth] = useState(600);
   const [hasError, setHasError] = useState(false);
 
-  // Reset error state when the URL changes (user clicks a new cert)
   useEffect(() => {
     setHasError(false);
   }, [url]);
@@ -21,7 +20,6 @@ export default function PdfViewer({ url }) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // 1. ERROR STATE: If PDF fails, show this text box
   if (hasError) {
     return (
       <div className="flex flex-col items-center justify-center p-12 text-center bg-gray-800/50 rounded-xl border border-gray-700 border-dashed w-full h-[400px]">
@@ -36,12 +34,11 @@ export default function PdfViewer({ url }) {
     );
   }
 
-  // 2. NORMAL STATE: Show the PDF
   return (
     <div className="flex justify-center">
       <Document
         file={url}
-        onLoadError={() => setHasError(true)} // <--- Triggers the Error State above
+        onLoadError={() => setHasError(true)} 
         loading={
           <div className="text-white animate-pulse flex flex-col items-center py-10">
             <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-2"></div>

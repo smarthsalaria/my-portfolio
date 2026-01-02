@@ -69,7 +69,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white  font-sans w-full flex items-center justify-center p-4">
       
-      {/* --- INTRO --- */}
+
       {showIntro && (
         <Intro onComplete={handleIntroComplete} />
       )}
@@ -93,7 +93,7 @@ export default function Home() {
           </div>
           <BentoGrid>
             
-            {/* --- PROFILE CARD --- */}
+
             <Card className="w-full md:col-span-2 md:row-span-2 bg-gradient-to-br from-blue-900 to-gray-900 justify-center">
               <div>
                 <h2 className="text-4xl font-bold mb-2">{resumeData.personal.name}</h2>
@@ -101,7 +101,7 @@ export default function Home() {
                 <p className="text-gray-400 mt-4 text-sm">{resumeData.personal.bio}</p>
               </div>
               
-              {/* Social Links */}
+
               <div className="flex gap-4 mt-6 flex-wrap">
                  <a href={resumeData.personal.socials.github} target="_blank" className="p-2 bg-gray-800 rounded-full hover:bg-white hover:text-black transition"><Github size={20} /></a>
                  <a href={resumeData.personal.socials.linkedin} target="_blank" className="p-2 bg-gray-800 rounded-full hover:bg-blue-600 hover:text-white transition"><Linkedin size={20} /></a>
@@ -114,7 +114,7 @@ export default function Home() {
               </div>
             </Card>
 
-            {/* --- Total EXPERIENCE  --- */}
+
             <div className='grid grid-cols-2 gap-4 md:contents'>
               <Card className="md:col-span-1 md:row-span-1 flex items-center justify-center bg-gray-800 relative group">
                 <Briefcase className="w-8 h-8 text-emerald-400 absolute top-4 right-4 opacity-50 group-hover:opacity-100 transition" />
@@ -125,7 +125,7 @@ export default function Home() {
                 </div>
               </Card>
 
-              {/* --- LOCATION --- */}
+
               <Card className="md:col-span-1 md:row-span-1 bg-gray-800 justify-center">
                 <MapPin className="w-8 h-8 text-red-400 mb-2" />
                 <h3 className="text-xl font-bold">{resumeData.personal.location}</h3>
@@ -134,7 +134,7 @@ export default function Home() {
               </Card>
             </div>
 
-            {/* Tech Stack Card */}
+
             <Card className="md:col-span-2 md:row-span-1 justify-center overflow-y-auto custom-scrollbar p-1 pl-4 ">
                 <h3 className="
                   sticky top-0 z-10
@@ -158,7 +158,7 @@ export default function Home() {
                 </div>
             </Card>
 
-            {/* --- EDUCATION --- */}
+
             <Card className="md:col-span-2 md:row-span-1 bg-gray-800 justify-center">
                <h3 className="text-lg font-bold text-gray-200 mb-2">Education</h3>
                {resumeData.education.map((edu, idx) => (
@@ -172,7 +172,7 @@ export default function Home() {
                ))}
             </Card>
 
-            {/* --- WORK Experience --- */}
+
             <Card className="md:col-span-2 md:row-span-2 overflow-y-auto  relative pt-0 pl-4">
               <h3 className="text-xl font-bold mb-6 flex items-center gap-2 sticky top-0 bg-gray-900 py-3 z-15 border-b border-gray-800 text-gray-300">
                 <Server /> Work Experience
@@ -203,7 +203,7 @@ export default function Home() {
                        </div>
                     </div>
 
-                    {/* Date & Description */}
+
                     <p className="text-xs text-gray-500 mb-2 font-mono">{job.period}</p>
                     <p className="text-sm text-gray-300 leading-relaxed">{job.description}</p>
                   </div>
@@ -211,10 +211,10 @@ export default function Home() {
               </div>
             </Card>
 
-        {/* --- DYNAMIC CERTIFICATES CARD --- */}
+
         <Card className="md:col-span-2 md:row-span-1 bg-gray-900 border border-gray-800 rounded-2xl p-0 flex flex-col overflow-hidden relative group hover:border-emerald-500/50 transition-all duration-300">
            
-           {/* Header with Link */}
+
            <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-900 z-10">
               <div className="flex items-center gap-2">
                  <Award className="text-emerald-400" size={20} />
@@ -229,23 +229,21 @@ export default function Home() {
               </Link>
            </div>
 
-           {/* Scrollable List Area */}
+
            <div className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-2 z-10">
-              {/* We show all certs here since it scrolls, or slice(0,4) if you want it fixed */}
+
               {certifications.slice(0,4).map((cert) => (
                  <Link 
                     key={cert.id}
                     href="/data-files"
                     onClick={() => {
                         sessionStorage.setItem('data_sys_tab', 'certificates');
-                        // Optional: If you want to auto-open this specific cert in the modal
-                        // sessionStorage.setItem('data_sys_cert_id', cert.id); 
                     }}
                     className="flex items-center gap-3 p-2 rounded-lg hover:bg-emerald-500/10 transition group/item cursor-pointer border border-transparent hover:border-emerald-500/20"
                  >
-                    {/* Icon Box */}
+
                     <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center shrink-0 border border-gray-700 text-emerald-400 group-hover/item:scale-110 transition">
-                       {/* Clone the icon with a smaller size for this list */}
+
                         <div className="[&>svg]:w-4 [&>svg]:h-4">
                             {cert.icon}
                         </div>
@@ -263,7 +261,7 @@ export default function Home() {
               ))}
            </div>
 
-           {/* Decorative Background Icon */}
+
            <div className="absolute bottom-0 top-16 right-2 opacity-[0.03] pointer-events-none group-hover:opacity-[0.06] transition duration-500">
               <Award size={80} />
            </div>

@@ -149,7 +149,6 @@ export default function DataFiles() {
     );
   }
 
-  // --- PORTFOLIO TECH STACK DATA ---
   const portfolioStack = {
     core: [
       { name: "Next.js 16", icon: "N", color: "text-white", desc: "App Router" },
@@ -180,7 +179,6 @@ export default function DataFiles() {
     const navigateCert = (direction) => {
     if (!selectedCert) return;
     
-    // Find current index
     const currentIndex = certifications.findIndex(c => c.id === selectedCert.id);
     if (currentIndex === -1) return;
 
@@ -239,7 +237,7 @@ export default function DataFiles() {
             {activeTab === 'profiles' && (
               <div className="w-full animate-in zoom-in duration-500 space-y-8">
                 
-                {/* 1. PROFESSIONAL */}
+
                 <section>
                   <h3 className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
                     <span className="w-2 h-2 bg-blue-500 rounded-full"></span> Professional & Dev
@@ -277,7 +275,7 @@ export default function DataFiles() {
                   </div>
                 </section>
 
-                {/* 3. GAMING */}
+
                 <section>
                   <h3 className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
                     <span className="w-2 h-2 bg-emerald-500 rounded-full"></span> Gaming ID
@@ -310,7 +308,7 @@ export default function DataFiles() {
                   </div>
                 </section>
 
-                {/* 4. ENTERTAINMENT */}
+
                 <section>
                   <h3 className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
                     <span className="w-2 h-2 bg-red-500 rounded-full"></span> Entertainment & Stream
@@ -325,14 +323,13 @@ export default function DataFiles() {
               </div>
             )}
 
-            {/* --- PROJECTS --- */}
+
             {activeTab === 'projects' && <EmptyState icon={<Folder size={64}/>} title="Project Directory" color="text-purple-400" />}
             
-            {/* --- CERTIFICATES --- */}
+
             {activeTab === 'certificates' && (
               <div className="w-full animate-in zoom-in duration-500 space-y-12">
                 
-                {/* 1. PROFESSIONAL SECTION */}
                 <CertSection 
                     title="Professional Certifications" 
                     subtitle="Industry recognized & verifiable credentials."
@@ -341,7 +338,7 @@ export default function DataFiles() {
                     onSelect={setSelectedCert}
                 />
 
-                {/* 2. UNIVERSITY SECTION */}
+
                 <CertSection 
                     title="University & Academic" 
                     subtitle="Degrees, Diplomas & Academic Records."
@@ -350,7 +347,7 @@ export default function DataFiles() {
                     onSelect={setSelectedCert}
                 />
 
-                {/* 3. OTHERS SECTION */}
+
                 <CertSection 
                     title="Workshops & Other" 
                     subtitle="Training programs, workshops and participations."
@@ -364,7 +361,7 @@ export default function DataFiles() {
             
             <Toast message={toastMsg} />
 
-      {/* --- SMART MODAL --- */}
+
       {selectedCert && (
         <div 
             className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-2 md:p-8 backdrop-blur-sm animate-in fade-in duration-200"
@@ -375,11 +372,11 @@ export default function DataFiles() {
                 onClick={e => e.stopPropagation()}
             >
                
-               {/* Header */}
+
                <div className="flex justify-between items-center p-4 border-b border-gray-800 bg-gray-900 relative z-10">
                   <div className="flex items-center gap-3 overflow-hidden">
                       <div className={`p-2 rounded-lg bg-gray-800 border ${selectedCert.color ? selectedCert.color : 'border-gray-600'}`}>
-                          {/* Render icon safely */}
+
                           <div className="[&>svg]:w-5 [&>svg]:h-5">
                              {selectedCert.icon}
                           </div>
@@ -397,7 +394,7 @@ export default function DataFiles() {
                   </button>
                </div>
 
-               {/* Content Viewer */}
+
                <div className="flex-1 bg-gray-800/50 relative flex items-center justify-center overflow-auto p-4 custom-scrollbar">
                   {selectedCert.file.endsWith('.pdf') ? (
                     <div className="max-w-full max-h-full w-full">
@@ -422,10 +419,10 @@ export default function DataFiles() {
                   )}
                </div>
 
-               {/* Footer */}
+
                <div className="p-4 border-t border-gray-800 bg-gray-900 flex justify-between md:justify-end gap-3">
                   
-                  {/* LOGIC: Verify Button */}
+
                   <button
                     onClick={() => {
                         if (selectedCert.link && selectedCert.link !== '#') {
@@ -461,7 +458,7 @@ export default function DataFiles() {
                   <ArrowLeft size={28} />
                </button>
 
-               {/* RIGHT ARROW (Next) */}
+
                <button 
                   onClick={(e) => { e.stopPropagation(); navigateCert('next'); }}
                   className="absolute right-4 top-1/2 -translate-y-1/2 z-[100] p-3 rounded-full shadow-xl transition-all
@@ -474,11 +471,11 @@ export default function DataFiles() {
         </div>
       )}
 
-            {/* --- ABOUT / SYSTEM SPECS TAB --- */}
+
             {activeTab === 'about' && (
               <div className="w-full animate-in zoom-in duration-500 space-y-8">
                 
-                {/* Header */}
+
                 <div className="flex items-center gap-4">
                     <div className="p-3 bg-yellow-500/20 rounded-xl border border-yellow-500/50">
                         <Cpu className="w-8 h-8 text-yellow-400" />
@@ -489,10 +486,10 @@ export default function DataFiles() {
                     </div>
                 </div>
 
-                {/* MAIN GRID: 1 Column on Mobile, 2 Columns on Desktop */}
+
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     
-                    {/* 1. CORE FRAMEWORK */}
+
                     <StackSection 
                         title="Core Framework" 
                         icon={<Terminal size={18} />} 
@@ -500,7 +497,7 @@ export default function DataFiles() {
                         color="border-cyan-500"
                     />
 
-                    {/* 2. INTERFACE & ENGINES */}
+
                     <StackSection 
                         title="Interface & Engines" 
                         icon={<Code2 size={18} />} 
@@ -508,7 +505,7 @@ export default function DataFiles() {
                         color="border-pink-500"
                     />
 
-                    {/* 3. DEV TOOLS & UTILITIES */}
+
                     <StackSection 
                         title="Dev Tools & Utilities" 
                         icon={<Wrench size={18} />} 
@@ -516,7 +513,7 @@ export default function DataFiles() {
                         color="border-orange-500"
                     />
 
-                    {/* 4. CLOUD & DEPLOYMENT */}
+
                     <StackSection 
                         title="Cloud & Deployment" 
                         icon={<Cloud size={18} />} 
@@ -526,7 +523,7 @@ export default function DataFiles() {
 
                 </div>
                 
-                {/* Footer */}
+
                 <div className="pt-8 border-t border-gray-800 text-center">
                     <p className="text-gray-600 text-xs font-mono mb-2">BUILD_ID: 2026.01.ALPHA</p>
                     <p className="text-gray-500 text-sm">
@@ -665,22 +662,22 @@ function EmptyState({ icon, title, color }) {
 function StackSection({ title, icon, items, color }) {
     return (
         <section className="bg-gray-900/40 rounded-xl border border-gray-800 p-5 relative overflow-hidden h-full">
-             {/* Decorative Top Line */}
+
             <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-${color.replace('border-', '')} to-transparent opacity-50`}></div>
 
             <h3 className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
                 {icon} {title}
             </h3>
 
-            {/* Internal Grid: Fixed to 2 columns because the card itself is now smaller */}
+
             <div className="grid grid-cols-2 gap-3">
                 {items.map((item, idx) => (
                     <div key={idx} className="flex flex-col items-center justify-center p-3 rounded-lg bg-black/30 border border-gray-800/50 hover:border-gray-600 transition group text-center">
-                        {/* Icon Box */}
+
                         <div className={`w-8 h-8 mb-2 rounded flex items-center justify-center font-bold text-sm bg-gray-800 group-hover:bg-gray-700 transition ${item.color}`}>
                             {item.icon}
                         </div>
-                        {/* Text Info */}
+
                         <div>
                              <span className="text-xs text-white font-bold block leading-tight">{item.name}</span>
                              <span className="text-[10px] text-gray-400 font-mono uppercase tracking-wide opacity-100">{item.desc}</span>
@@ -738,7 +735,7 @@ function CertSection({ title, subtitle, icon, items, onSelect }) {
                             </span>
                         </div>
                         
-                        {/* Link Status Icon */}
+
                         {hasLink ? (
                             <ExternalLink size={16} className="text-gray-500 group-hover:text-blue-400 transition" />
                         ) : (

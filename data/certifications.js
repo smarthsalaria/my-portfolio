@@ -1,4 +1,3 @@
-// data/certifications.js
 import { BadgeCheck, GraduationCap, Scroll, Award } from 'lucide-react';
 import React from 'react';
 
