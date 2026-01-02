@@ -1,8 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Folder, Award, FileText, User, ArrowLeft, Github, Discord, Linkedin, ExternalLink, X, Menu, Lock, Unlock, AlertTriangle, BadgeCheck, Eye, Download } from 'lucide-react';
+import { Folder, Award, FileText, User, Github, Discord, Linkedin, ExternalLink, X, Menu, Lock, Unlock, AlertTriangle, BadgeCheck, Eye, Download } from 'lucide-react';
 import Link from 'next/link';
-import {  Link2Off, Link as LinkIcon, GraduationCap, Scroll, Cpu, Server, Code2, Terminal, Database, Globe, Cloud, Wrench } from 'lucide-react'; 
+import {  Link2Off, Link as LinkIcon, GraduationCap, Scroll, Cpu, Server, Code2, Terminal, Database, Globe, Cloud, Wrench, ArrowRight, ArrowLeft  } from 'lucide-react'; 
+
 import dynamic from 'next/dynamic';
 import { certifications } from '@/data/certifications';
 
@@ -176,6 +177,37 @@ export default function DataFiles() {
     ]
   };
 
+    const navigateCert = (direction) => {
+    if (!selectedCert) return;
+    
+    // Find current index
+    const currentIndex = certifications.findIndex(c => c.id === selectedCert.id);
+    if (currentIndex === -1) return;
+
+    let newIndex;
+    if (direction === 'next') {
+        newIndex = (currentIndex + 1) % certifications.length;
+    } else {
+        newIndex = (currentIndex - 1 + certifications.length) % certifications.length;
+    }
+
+    setSelectedCert(certifications[newIndex]);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!selectedCert) return; 
+
+      if (e.key === 'ArrowRight') navigateCert('next');
+      if (e.key === 'ArrowLeft') navigateCert('prev');
+      if (e.key === 'Escape') setSelectedCert(null);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedCert]); 
+
+
   return (
     <div className="min-h-screen bg-black text-white font-sans overflow-hidden relative selection:bg-blue-500/30">
       
@@ -330,9 +362,6 @@ export default function DataFiles() {
               </div>
             )}
             
-            {/* ... other tabs ... */}
-
-            {/* --- TOAST POPUP --- */}
             <Toast message={toastMsg} />
 
       {/* --- SMART MODAL --- */}
@@ -345,6 +374,25 @@ export default function DataFiles() {
                 className="relative w-full max-w-5xl h-[85vh] bg-gray-900 rounded-xl border border-gray-700 overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200"
                 onClick={e => e.stopPropagation()}
             >
+
+              {/* PREV BUTTON (Left) */}
+               <button 
+                  onClick={(e) => { e.stopPropagation(); navigateCert('prev'); }}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 bg-black/50 hover:bg-emerald-500 text-white/50 hover:text-white rounded-full backdrop-blur-md transition-all border border-white/10 hover:border-emerald-400 group"
+                  title="Previous (Left Arrow)"
+               >
+                  <ArrowLeft size={24} className="group-hover:-translate-x-1 transition" />
+               </button>
+
+               {/* NEXT BUTTON (Right) */}
+               <button 
+                  onClick={(e) => { e.stopPropagation(); navigateCert('next'); }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 bg-black/50 hover:bg-emerald-500 text-white/50 hover:text-white rounded-full backdrop-blur-md transition-all border border-white/10 hover:border-emerald-400 group"
+                  title="Next (Right Arrow)"
+               >
+                  <ArrowRight size={24} className="group-hover:translate-x-1 transition" />
+               </button>              
+
                {/* Header */}
                <div className="flex justify-between items-center p-4 border-b border-gray-800 bg-gray-900">
                  <div className="flex items-center gap-3">
