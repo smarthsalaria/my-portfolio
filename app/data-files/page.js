@@ -371,30 +371,54 @@ export default function DataFiles() {
             onClick={() => setSelectedCert(null)}
         >
             <div 
-                className="relative w-full max-w-5xl h-[85vh] bg-gray-900 rounded-xl border border-gray-700 overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200"
+                className="relative w-full max-w-5xl h-[80vh] md:h-[85vh] bg-gray-900 rounded-xl border border-gray-700 overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200"
                 onClick={e => e.stopPropagation()}
             >
-
+               
                {/* Header */}
-               <div className="flex justify-between items-center p-4 border-b border-gray-800 bg-gray-900">
-                 <div className="flex items-center gap-3">
-                    <Award className="text-blue-500" size={20} />
-                    <div>
-                        <h3 className="text-lg font-bold text-white">{selectedCert.title}</h3>
-                        <p className="text-xs text-gray-400">{selectedCert.issuer} • Issued {selectedCert.date}</p>
-                    </div>
-                 </div>
-                 <button onClick={() => setSelectedCert(null)} className="p-2 hover:bg-red-500/20 hover:text-red-400 rounded-full cursor-pointer transition">
-                    <X size={20} />
-                 </button>
+               <div className="flex justify-between items-center p-4 border-b border-gray-800 bg-gray-900 relative z-10">
+                  <div className="flex items-center gap-3 overflow-hidden">
+                      <div className={`p-2 rounded-lg bg-gray-800 border ${selectedCert.color ? selectedCert.color : 'border-gray-600'}`}>
+                          {/* Render icon safely */}
+                          <div className="[&>svg]:w-5 [&>svg]:h-5">
+                             {selectedCert.icon}
+                          </div>
+                      </div>
+                      <div className="min-w-0">
+                          <h3 className="text-lg font-bold text-white truncate">{selectedCert.title}</h3>
+                          <p className="text-gray-400 text-xs">{selectedCert.issuer}</p>
+                      </div>
+                  </div>
+                  <button 
+                    onClick={() => setSelectedCert(null)}
+                    className="p-2 hover:bg-red-500/20 hover:text-red-400 rounded-lg transition"
+                  >
+                      <X size={20} />
+                  </button>
                </div>
 
-               {/* Viewer (PDF/Image) */}
-               <div className="flex-1 bg-gray-800/50 relative flex items-center justify-center overflow-hidden">
+               {/* Content Viewer */}
+               <div className="flex-1 bg-gray-800/50 relative flex items-center justify-center overflow-auto p-4 custom-scrollbar">
                   {selectedCert.file.endsWith('.pdf') ? (
-                    <iframe src={selectedCert.file} className="w-full h-full border-0" />
+                    <div className="max-w-full max-h-full w-full">
+                       <PdfViewer url={selectedCert.file} />
+                    </div>
                   ) : (
-                    <img src={selectedCert.file} className="max-w-full max-h-full object-contain p-4" />
+                    <>
+                        {imgError ? (
+                            <div className="flex flex-col items-center justify-center p-12 text-center border border-gray-700 border-dashed rounded-xl">
+                                <AlertTriangle className="w-10 h-10 text-gray-500 mb-4" />
+                                <h3 className="text-xl font-bold text-gray-300">Image Not Available</h3>
+                            </div>
+                        ) : (
+                            <img 
+                                src={selectedCert.file} 
+                                alt={selectedCert.title} 
+                                className="max-w-full max-h-full object-contain shadow-2xl rounded-lg"
+                                onError={() => setImgError(true)}
+                            />
+                        )}
+                    </>
                   )}
                </div>
 
