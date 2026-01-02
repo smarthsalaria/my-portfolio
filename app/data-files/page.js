@@ -375,30 +375,6 @@ export default function DataFiles() {
                 onClick={e => e.stopPropagation()}
             >
 
-              {/* --- NAVIGATION ARROWS (Mobile Fixed) --- */}
-               
-               {/* PREV BUTTON (Left) */}
-               <button 
-                  onClick={(e) => { e.stopPropagation(); navigateCert('prev'); }}
-                  className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-[70] p-3 rounded-full transition-all border group
-                    bg-gray-800 text-white border-gray-600 shadow-lg opacity-100   /* MOBILE STYLES (Solid & Visible) */
-                    md:bg-black/50 md:text-white/50 md:border-white/10 md:opacity-100 md:hover:bg-emerald-500 md:hover:text-white md:hover:border-emerald-400 /* DESKTOP STYLES (Subtle) */
-                  "
-               >
-                  <ArrowLeft size={24} className="md:group-hover:-translate-x-1 transition" />
-               </button>
-
-               {/* NEXT BUTTON (Right) */}
-               <button 
-                  onClick={(e) => { e.stopPropagation(); navigateCert('next'); }}
-                  className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-[70] p-3 rounded-full transition-all border group
-                    bg-gray-800 text-white border-gray-600 shadow-lg opacity-100   /* MOBILE STYLES */
-                    md:bg-black/50 md:text-white/50 md:border-white/10 md:opacity-100 md:hover:bg-emerald-500 md:hover:text-white md:hover:border-emerald-400 /* DESKTOP STYLES */
-                  "
-               >
-                  <ArrowRight size={24} className="md:group-hover:translate-x-1 transition" />
-               </button>              
-
                {/* Header */}
                <div className="flex justify-between items-center p-4 border-b border-gray-800 bg-gray-900">
                  <div className="flex items-center gap-3">
@@ -408,7 +384,7 @@ export default function DataFiles() {
                         <p className="text-xs text-gray-400">{selectedCert.issuer} • Issued {selectedCert.date}</p>
                     </div>
                  </div>
-                 <button onClick={() => setSelectedCert(null)} className="p-2 hover:bg-red-500/20 hover:text-red-400 rounded-full transition">
+                 <button onClick={() => setSelectedCert(null)} className="p-2 hover:bg-red-500/20 hover:text-red-400 rounded-full cursor-pointer transition">
                     <X size={20} />
                  </button>
                </div>
@@ -436,7 +412,7 @@ export default function DataFiles() {
                     }}
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition
                         ${(selectedCert.link && selectedCert.link !== '#') 
-                            ? 'bg-gray-800 hover:bg-gray-700 text-gray-300' 
+                            ? 'bg-gray-800 hover:bg-gray-700 text-gray-300 cursor-pointer' 
                             : 'bg-gray-800/50 text-gray-600 cursor-not-allowed hover:bg-red-900/20 hover:text-red-400'}
                     `}
                   >
@@ -452,6 +428,24 @@ export default function DataFiles() {
                      <Download size={16} /> Download
                   </a>
                </div>
+               <button 
+                  onClick={(e) => { e.stopPropagation(); navigateCert('prev'); }}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 z-[100] p-3 rounded-full shadow-xl transition-all
+                    bg-gray-900/80 border border-gray-600 text-white backdrop-blur-sm
+                    hover:bg-emerald-500 hover:border-emerald-400 hover:scale-110 cursor-pointer"
+               >
+                  <ArrowLeft size={28} />
+               </button>
+
+               {/* RIGHT ARROW (Next) */}
+               <button 
+                  onClick={(e) => { e.stopPropagation(); navigateCert('next'); }}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 z-[100] p-3 rounded-full shadow-xl transition-all
+                    bg-gray-900/80 border border-gray-600 text-white backdrop-blur-sm
+                    hover:bg-emerald-500 hover:border-emerald-400 hover:scale-110 cursor-pointer" 
+               >
+                  <ArrowRight size={28} />
+               </button>
             </div>
         </div>
       )}
@@ -571,98 +565,6 @@ export default function DataFiles() {
           </div>
       </div>
 
-      {selectedCert && (
-        <div 
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-2 md:p-8 backdrop-blur-sm animate-in fade-in duration-200"
-            onClick={() => setSelectedCert(null)}
-        >
-            <div 
-                className="relative w-full max-w-5xl h-[85vh] bg-gray-900 rounded-xl border border-gray-700 overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200"
-                onClick={e => e.stopPropagation()}
-            >
-               {/* Header */}
-               <div className="flex justify-between items-center p-4 border-b border-gray-800 bg-gray-900">
-                 <div className="flex items-center gap-3">
-                    <Award className="text-blue-500" size={20} />
-                    <div>
-                        <h3 className="text-lg font-bold text-white">{selectedCert.title}</h3>
-                        <p className="text-xs text-gray-400">{selectedCert.issuer} • Issued {selectedCert.date}</p>
-                    </div>
-                 </div>
-                 <button 
-                    onClick={() => setSelectedCert(null)}
-                    className="p-2 hover:bg-red-500/20 hover:text-red-400 rounded-full transition"
-                 >
-                    <X size={20} />
-                 </button>
-               </div>
-
-               {/* CONTENT VIEWER AREA */}
-               <div className="flex-1 bg-gray-800/50 relative flex items-center justify-center overflow-auto p-4 custom-scrollbar">
-                  
-                  {/* CASE 1: PDF Handling (Handled by Component) */}
-                  {selectedCert.file.endsWith('.pdf') ? (
-                    <div className="max-w-full max-h-full w-full">
-                       <PdfViewer url={selectedCert.file} />
-                    </div>
-                  ) : (
-                    /* CASE 2: Image Handling */
-                    <>
-                        {/* A. If Error: Show Text */}
-                        {imgError ? (
-                            <div className="flex flex-col items-center justify-center p-12 text-center border border-gray-700 border-dashed rounded-xl">
-                                <AlertTriangle className="w-10 h-10 text-gray-500 mb-4" />
-                                <h3 className="text-xl font-bold text-gray-300">Image Not Available</h3>
-                                <p className="text-gray-500 text-sm mt-2">Preview cannot be displayed.</p>
-                            </div>
-                        ) : (
-                            /* B. If Normal: Show Image */
-                            <img 
-                                src={selectedCert.file} 
-                                alt={selectedCert.title} 
-                                className="max-w-full max-h-full object-contain shadow-2xl rounded-lg"
-                                onError={() => setImgError(true)} // <--- Triggers the text view
-                            />
-                        )}
-                    </>
-                  )}
-               </div>
-
-               {/* Footer */}
-               <div className="p-4 border-t border-gray-800 bg-gray-900 flex justify-between md:justify-end gap-3">
-                  
-                  {/* VERIFY BUTTON (Smart Link) */}
-                  <a
-                    href={(selectedCert.link && selectedCert.link !== '#') ? selectedCert.link : '#'}
-                    target={(selectedCert.link && selectedCert.link !== '#') ? "_blank" : "_self"}
-                    onClick={(e) => {
-                        if (!selectedCert.link || selectedCert.link === '#') {
-                            e.preventDefault();
-                            setToastMsg("Verification Link Not Available");
-                        }
-                    }}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition
-                        ${(selectedCert.link && selectedCert.link !== '#') 
-                            ? 'bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white cursor-pointer' 
-                            : 'bg-gray-800/50 text-gray-600 cursor-not-allowed hover:bg-red-900/10 hover:text-red-400'}
-                    `}
-                  >
-                    {(selectedCert.link && selectedCert.link !== '#') ? <ExternalLink size={16} /> : <Link2Off size={16} />}
-                    <span className="hidden md:inline">Verify Credential</span>
-                  </a>
-                  
-                  {/* DOWNLOAD BUTTON */}
-                  <a 
-                     href={selectedCert.file} 
-                     download 
-                     className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm font-bold text-white shadow-lg transition"
-                  >
-                     <Download size={16} /> Download
-                  </a>
-               </div>
-            </div>
-        </div>
-      )}
 
     </div>
   );

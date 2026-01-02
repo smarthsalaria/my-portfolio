@@ -211,10 +211,8 @@ export default function Home() {
               </div>
             </Card>
 
-            {/* --- CERTIFICATIONS --- */}
-            {/* --- DYNAMIC CERTIFICATES CARD --- */}
         {/* --- DYNAMIC CERTIFICATES CARD --- */}
-        <card className="md:col-span-2 md:row-span-1 bg-gray-900 border border-gray-800 rounded-2xl p-0 flex flex-col overflow-hidden relative group hover:border-emerald-500/50 transition-all duration-300">
+        <Card className="md:col-span-2 md:row-span-1 bg-gray-900 border border-gray-800 rounded-2xl p-0 flex flex-col overflow-hidden relative group hover:border-emerald-500/50 transition-all duration-300">
            
            {/* Header with Link */}
            <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-900 z-10">
@@ -269,7 +267,7 @@ export default function Home() {
            <div className="absolute bottom-0 right-0 opacity-[0.03] pointer-events-none group-hover:opacity-[0.06] transition duration-500">
               <Award size={120} />
            </div>
-        </card>
+        </Card>
           </BentoGrid>
           <div className="w-full text-center py-8 mt-8 border-t border-gray-900">
              <p className="text-gray-300 text-xs font-mono uppercase tracking-widest">
