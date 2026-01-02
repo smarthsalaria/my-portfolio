@@ -2,7 +2,13 @@
 import { useState, useEffect } from 'react';
 import { Folder, Award, FileText, User, ArrowLeft, Github, Discord, Linkedin, ExternalLink, X, Menu, Lock, Unlock, AlertTriangle, BadgeCheck, Eye, Download } from 'lucide-react';
 import Link from 'next/link';
-
+import {  Link2Off, Link as LinkIcon, GraduationCap, Scroll } from 'lucide-react'; 
+import dynamic from 'next/dynamic';
+// This tells Next.js: "Do not touch this file on the server, wait for the browser"
+const PdfViewer = dynamic(() => import('@/components/PdfViewer'), { 
+  ssr: false,
+  loading: () => <div className="text-gray-500 text-sm text-center py-10">Loading Viewer...</div>
+});
 const ACCESS_PASSWORD = "admin"; 
 
 export default function DataFiles() {
@@ -12,10 +18,29 @@ export default function DataFiles() {
   const [errorMsg, setErrorMsg] = useState('');
   const [isChecking, setIsChecking] = useState(false);
 
-  const [activeTab, setActiveTab] = useState('profiles');
+  const [activeTab, setActiveTab] = useState(null); 
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   const [selectedCert, setSelectedCert] = useState(null);
+  
+  const [toastMsg, setToastMsg] = useState(''); 
+
+  useEffect(() => {
+    if (toastMsg) {
+      const timer = setTimeout(() => setToastMsg(''), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [toastMsg]);
+
+  useEffect(() => {
+    const savedTab = sessionStorage.getItem('data_sys_tab');
+    if (savedTab) {
+      setActiveTab(savedTab);
+    } else {
+      setActiveTab('profiles');
+    }
+  }, []);
 
   useEffect(() => {
     const sessionAuth = sessionStorage.getItem('data_sys_auth');
@@ -23,6 +48,12 @@ export default function DataFiles() {
       setIsAuthenticated(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (activeTab) {
+      sessionStorage.setItem('data_sys_tab', activeTab);
+    }
+  }, [activeTab]);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -48,45 +79,131 @@ export default function DataFiles() {
     { id: 'documents', icon: <FileText size={20} />, label: 'Docs', angle: 60, color: 'text-yellow-400', border: 'border-yellow-500' },
   ];
 
-  // --- UPDATED CERTIFICATES DATA ---
-  // ACTION REQUIRED: Put your images in 'public/certificates/' and update filenames below
   const certifications = [
     {
       id: 1,
+      category: "professional", 
       title: "Microsoft Certified: Azure Fundamentals",
       issuer: "Microsoft",
       code: "AZ-900",
       date: "2024",
       icon: <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" className="w-8 h-8" />,
-      link: "https://learn.microsoft.com", 
-      image: "/certificates/az900.jpg", // <--- PLACEHOLDER: Update with your actual file path
+      link: "https://learn.microsoft.com/api/credentials/share/en-us/smarthsalaria/D926472C09CAEE59?sharingId=79851582C16A4478", 
+      file: "/certificates/az900.pdf",
       color: "border-blue-500"
     },
     {
       id: 2,
-      title: "Full Stack Web Development",
-      issuer: "Coursera",
-      code: "Professional Cert",
-      date: "2023",
-      icon: <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Coursera-Logo_600x600.svg" alt="Coursera" className="w-8 h-8 rounded-full bg-white p-1" />,
-      link: "https://coursera.org",
-      image: "/certificates/coursera.jpg", // <--- PLACEHOLDER
-      color: "border-blue-400"
+      category: "professional", 
+      title: "Microsoft Certified: Azure Administrator Associate",
+      issuer: "Microsoft",
+      code: "AZ-900",
+      date: "2024 - 2026",
+      icon: <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" className="w-8 h-8" />,
+      link: "https://learn.microsoft.com/api/credentials/share/en-us/smarthsalaria/F27B9E6BCA6B1292?sharingId=79851582C16A4478", 
+      file: "/certificates/az104.pdf",
+      color: "border-blue-500"
     },
     {
       id: 3,
-      title: "Internet of Things (IoT) Training",
-      issuer: "Verzeo",
-      code: "Technical",
+      category: "professional",
+      title: "Version Control",
+      issuer: "Coursera | Meta",
+      code: "Course",
+      date: "2024",
+      icon: <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Coursera-Logo_600x600.svg" alt="Coursera" className="w-8 h-8 rounded-full bg-white p-1" />,
+      link: "https://coursera.org/share/e7a2d93a3836a18253e2cf4db4248668",
+      file: "/certificates/vc.pdf",
+      color: "border-blue-500"
+    },
+    {
+      id: 4,
+      category: "professional",
+      title: "Basics React",
+      issuer: "Coursera | Meta",
+      code: "Course",
+      date: "2024",
+      icon: <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Coursera-Logo_600x600.svg" alt="Coursera" className="w-8 h-8 rounded-full bg-white p-1" />,
+      link: "https://coursera.org/share/1075012ad3e58d26580053b8e67461d1",
+      file: "/certificates/br.pdf",
+      color: "border-blue-500"
+    },
+    {
+      id: 5,
+      category: "professional",
+      title: "Advanced React",
+      issuer: "Coursera | Meta",
+      code: "Course",
+      date: "2025",
+      icon: <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Coursera-Logo_600x600.svg" alt="Coursera" className="w-8 h-8 rounded-full bg-white p-1" />,
+      link: "https://coursera.org/share/5ff22c804e577c308da646e6779e9908",
+      file: "/certificates/ar.pdf",
+      color: "border-blue-500"
+    },
+
+    {
+      id: 6,
+      category: "university",
+      title: "Bachelor of Engineering: Internet of Things",
+      issuer: "Chandigarh University, Mohali",
+      code: "Computer Science & Engineering",
+      date: "2018 - 2022",
+      icon: <img src='/my-portfolio/logos/culogo_1.png' alt="Chandigarh University Logo" className='w-8 h-12 bg-gray p-0 '/>,
+      link: "#", 
+      file: "/certificates/cu.jpg",
+      color: "border-gray-700"
+    },
+    {
+      id: 7,
+      category: "other",
+      title: "Python 3: Deep Dive (Part 1- Functional)",
+      issuer: "Udemy",
+      code: "Course | Chandigarh Univeristy",
       date: "2021",
-      icon: <Award className="w-8 h-8 text-emerald-400" />,
-      link: "#",
-      image: "/certificates/iot.jpg", // <--- PLACEHOLDER
+      icon: <Scroll className="w-8 h-8 text-emerald-400" />,
+      link: "ude.my/UC-48332433-b730-42d1-a3de-f986cf3e9d3a", 
+      file: "/certificates/python.pdf",
       color: "border-emerald-500"
     },
+    {
+      id: 8,
+      category: "other",
+      title: "Algorithms on Graphs",
+      issuer: "Coursera",
+      code: "Course | Chandigarh University",
+      date: "2020",
+      icon: <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Coursera-Logo_600x600.svg" alt="Coursera" className="w-8 h-8 rounded-full bg-white p-1" />,
+      link: "https://coursera.org/share/4fcd22d2fcd377d4f2b61f5f69945065", 
+      file: "/certificates/algo.pdf",
+      color: "border-emerald-500"
+    },
+
+    {
+      id: 9,
+      category: "other",
+      title: "Internet of Things",
+      issuer: "Verzeo",
+      code: "Workshop | Chandigarh University",
+      date: "2021",
+      icon: <Scroll className="w-8 h-8 text-emerald-400" />,
+      link: "#",
+      file: "/certificates/iot.jpg",
+      color: "border-emerald-500"
+    },
+    {
+      id: 10,
+      category: "other",
+      title: "Web Development",
+      issuer: "Bolt TechnoShots program",
+      code: "Workshop | Chandigarh University",
+      date: "2020",
+      icon: <Scroll className="w-8 h-8 text-emerald-400" />,
+      link: "#",
+      file: "/certificates/Web.pdf",
+      color: "border-emerald-500"
+    }
   ];
 
-  // --- LOGIN SCREEN ---
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-black text-white font-mono flex items-center justify-center p-4 relative overflow-hidden">
@@ -157,7 +274,7 @@ export default function DataFiles() {
 
       <div className="absolute top-0 left-0 w-full p-4 md:p-8 z-20 flex justify-between items-start pointer-events-none">
          <Link href="/" className="flex items-center gap-2 text-gray-400 hover:text-white transition bg-gray-900 pointer-events-auto bg-black/50 px-4 py-2 rounded-full border border-gray-800 backdrop-blur-md text-sm md:text-base">
-           <ArrowLeft size={18} /> <span className="hidden md:inline">Back to Dashboard</span><span className="md:hidden">Back</span>
+           <ArrowLeft size={18} /> <span className="hidden md:inline">Back to Overview</span><span className="md:hidden">Back</span>
          </Link>
          
          <div className="text-right opacity-50 hidden md:block">
@@ -171,6 +288,12 @@ export default function DataFiles() {
       <div className="w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar">
         
         <div className="w-full max-w-5xl mx-auto px-4 pt-24 pb-32 flex flex-col items-center min-h-screen">
+            
+            {!activeTab && (
+               <div className="flex h-[50vh] items-center justify-center text-gray-500 animate-pulse">
+                  Initializing System...
+               </div>
+            )}
             
             {activeTab === 'profiles' && (
               <div className="w-full animate-in zoom-in duration-500 space-y-8">
@@ -266,50 +389,109 @@ export default function DataFiles() {
             
             {/* --- CERTIFICATES --- */}
             {activeTab === 'certificates' && (
-              <div className="w-full animate-in zoom-in duration-500">
-                <div className="mb-6 flex items-center gap-3">
-                   <div className="p-3 bg-emerald-500/20 rounded-lg border border-emerald-500/50">
-                      <Award className="w-8 h-8 text-emerald-400" />
-                   </div>
-                   <div>
-                      <h2 className="text-2xl font-bold text-white">Verified Certifications</h2>
-                      <p className="text-gray-400 text-sm">Tap a card to view the original certificate.</p>
-                   </div>
-                </div>
+              <div className="w-full animate-in zoom-in duration-500 space-y-12">
+                
+                {/* 1. PROFESSIONAL SECTION */}
+                <CertSection 
+                    title="Professional Certifications" 
+                    subtitle="Industry recognized & verifiable credentials."
+                    icon={<BadgeCheck className="w-6 h-6 text-blue-400" />}
+                    items={certifications.filter(c => c.category === 'professional')}
+                    onSelect={setSelectedCert}
+                />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                   {certifications.map((cert) => (
-                     <div 
-                       key={cert.id} 
-                       onClick={() => setSelectedCert(cert)} 
-                       className={`relative bg-gray-900/80 border ${cert.color} border-opacity-30 hover:border-opacity-100 p-5 rounded-xl transition-all group overflow-hidden cursor-pointer`}
-                     >
-                        <div className="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition">
-                           <BadgeCheck size={80} />
-                        </div>
-                        
-                        <div className="flex items-start justify-between relative z-10">
-                           <div className="flex items-center gap-3 mb-3">
-                              {cert.icon}
-                              <span className="bg-gray-800 text-[10px] px-2 py-1 rounded border border-gray-700 text-gray-400 font-mono">
-                                {cert.date}
-                              </span>
-                           </div>
-                           <Eye size={16} className="text-gray-500 group-hover:text-white transition" />
-                        </div>
+                {/* 2. UNIVERSITY SECTION */}
+                <CertSection 
+                    title="University & Academic" 
+                    subtitle="Degrees, Diplomas & Academic Records."
+                    icon={<GraduationCap className="w-6 h-6 text-white" />}
+                    items={certifications.filter(c => c.category === 'university')}
+                    onSelect={setSelectedCert}
+                />
 
-                        <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition relative z-10">
-                          {cert.title}
-                        </h3>
-                        <p className="text-sm text-gray-400 relative z-10 flex items-center gap-2">
-                           <span className={`w-2 h-2 rounded-full ${cert.color.replace('border', 'bg')}`}></span>
-                           {cert.issuer} • {cert.code}
-                        </p>
-                     </div>
-                   ))}
-                </div>
+                {/* 3. OTHERS SECTION */}
+                <CertSection 
+                    title="Workshops & Other" 
+                    subtitle="Training programs, workshops and participations."
+                    icon={<Scroll className="w-6 h-6 text-emerald-400" />}
+                    items={certifications.filter(c => c.category === 'other')}
+                    onSelect={setSelectedCert}
+                />
+                
               </div>
             )}
+            
+            {/* ... other tabs ... */}
+
+            {/* --- TOAST POPUP --- */}
+            <Toast message={toastMsg} />
+
+      {/* --- SMART MODAL --- */}
+      {selectedCert && (
+        <div 
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-2 md:p-8 backdrop-blur-sm animate-in fade-in duration-200"
+            onClick={() => setSelectedCert(null)}
+        >
+            <div 
+                className="relative w-full max-w-5xl h-[85vh] bg-gray-900 rounded-xl border border-gray-700 overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200"
+                onClick={e => e.stopPropagation()}
+            >
+               {/* Header */}
+               <div className="flex justify-between items-center p-4 border-b border-gray-800 bg-gray-900">
+                 <div className="flex items-center gap-3">
+                    <Award className="text-blue-500" size={20} />
+                    <div>
+                        <h3 className="text-lg font-bold text-white">{selectedCert.title}</h3>
+                        <p className="text-xs text-gray-400">{selectedCert.issuer} • Issued {selectedCert.date}</p>
+                    </div>
+                 </div>
+                 <button onClick={() => setSelectedCert(null)} className="p-2 hover:bg-red-500/20 hover:text-red-400 rounded-full transition">
+                    <X size={20} />
+                 </button>
+               </div>
+
+               {/* Viewer (PDF/Image) */}
+               <div className="flex-1 bg-gray-800/50 relative flex items-center justify-center overflow-hidden">
+                  {selectedCert.file.endsWith('.pdf') ? (
+                    <iframe src={selectedCert.file} className="w-full h-full border-0" />
+                  ) : (
+                    <img src={selectedCert.file} className="max-w-full max-h-full object-contain p-4" />
+                  )}
+               </div>
+
+               {/* Footer */}
+               <div className="p-4 border-t border-gray-800 bg-gray-900 flex justify-between md:justify-end gap-3">
+                  
+                  {/* LOGIC: Verify Button */}
+                  <button
+                    onClick={() => {
+                        if (selectedCert.link && selectedCert.link !== '#') {
+                            window.open(selectedCert.link, '_blank');
+                        } else {
+                            setToastMsg("Verification Link Not Available");
+                        }
+                    }}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition
+                        ${(selectedCert.link && selectedCert.link !== '#') 
+                            ? 'bg-gray-800 hover:bg-gray-700 text-gray-300' 
+                            : 'bg-gray-800/50 text-gray-600 cursor-not-allowed hover:bg-red-900/20 hover:text-red-400'}
+                    `}
+                  >
+                    {(selectedCert.link && selectedCert.link !== '#') ? <ExternalLink size={16} /> : <Link2Off size={16} />}
+                    <span className="hidden md:inline">Verify Credential</span>
+                  </button>
+                  
+                  <a 
+                     href={selectedCert.file} 
+                     download 
+                     className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm font-bold text-white shadow-lg transition"
+                  >
+                     <Download size={16} /> Download
+                  </a>
+               </div>
+            </div>
+        </div>
+      )}
 
             {/* --- DOCUMENTS --- */}
             {activeTab === 'documents' && <EmptyState icon={<FileText size={64}/>} title="Documentation" color="text-yellow-400" />}
@@ -374,17 +556,17 @@ export default function DataFiles() {
           </div>
       </div>
 
-      {/* --- MODAL (Lightbox) --- */}
       {selectedCert && (
         <div 
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm animate-in fade-in duration-200"
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-2 md:p-8 backdrop-blur-sm animate-in fade-in duration-200"
             onClick={() => setSelectedCert(null)}
         >
             <div 
-                className="relative max-w-4xl w-full max-h-[90vh] bg-gray-900 rounded-xl border border-gray-700 overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200"
+                className="relative w-full max-w-5xl h-[85vh] bg-gray-900 rounded-xl border border-gray-700 overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200"
                 onClick={e => e.stopPropagation()}
             >
-               <div className="flex justify-between items-center p-4 border-b border-gray-800 bg-gray-900/50">
+               {/* Header */}
+               <div className="flex justify-between items-center p-4 border-b border-gray-800 bg-gray-900">
                  <div className="flex items-center gap-3">
                     <Award className="text-blue-500" size={20} />
                     <div>
@@ -400,23 +582,58 @@ export default function DataFiles() {
                  </button>
                </div>
 
-               <div className="flex-1 overflow-auto p-8 flex justify-center items-center bg-black/50">
-                  <img 
-                    src={selectedCert.image} 
-                    alt={selectedCert.title} 
-                    className="max-w-full max-h-[60vh] object-contain rounded-lg shadow-lg border border-gray-800"
-                    onError={(e) => {
-                        e.target.onerror = null; 
-                        e.target.src="https://placehold.co/600x400?text=Certificate+Image+Not+Found";
-                    }}
-                  />
+               {/* CONTENT VIEWER AREA */}
+               <div className="flex-1 bg-gray-800/50 relative flex items-center justify-center overflow-auto p-4 custom-scrollbar">
+                  
+                  {/* CASE 1: PDF Handling (Dynamic Component) */}
+                  {selectedCert.file.endsWith('.pdf') ? (
+                    <div className="max-w-full max-h-full w-full">
+                       {/* PASS THE FILE URL TO THE COMPONENT */}
+                       <PdfViewer url={selectedCert.file} />
+                    </div>
+                  ) : (
+                    /* CASE 2: Image Handling */
+                    <img 
+                        src={selectedCert.file} 
+                        alt={selectedCert.title} 
+                        className="max-w-full max-h-full object-contain shadow-2xl rounded-lg"
+                        onError={(e) => {
+                            e.target.onerror = null; 
+                            e.target.src="https://placehold.co/600x400?text=File+Not+Found";
+                        }}
+                    />
+                  )}
                </div>
 
-               <div className="p-4 border-t border-gray-800 bg-gray-900/50 flex justify-end gap-3">
-                  <a href={selectedCert.link} target="_blank" className="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm text-gray-300 transition">
-                    <ExternalLink size={16} /> Verify Credential
+               {/* Footer */}
+               <div className="p-4 border-t border-gray-800 bg-gray-900 flex justify-between md:justify-end gap-3">
+                  
+                  {/* VERIFY BUTTON (Smart Link) */}
+                  <a
+                    href={(selectedCert.link && selectedCert.link !== '#') ? selectedCert.link : '#'}
+                    target={(selectedCert.link && selectedCert.link !== '#') ? "_blank" : "_self"}
+                    onClick={(e) => {
+                        if (!selectedCert.link || selectedCert.link === '#') {
+                            e.preventDefault();
+                            setToastMsg("Verification Link Not Available");
+                        }
+                    }}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition
+                        ${(selectedCert.link && selectedCert.link !== '#') 
+                            ? 'bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white cursor-pointer' 
+                            : 'bg-gray-800/50 text-gray-600 cursor-not-allowed hover:bg-red-900/10 hover:text-red-400'}
+                    `}
+                  >
+                    {(selectedCert.link && selectedCert.link !== '#') ? <ExternalLink size={16} /> : <Link2Off size={16} />}
+                    <span className="hidden md:inline">Verify Credential</span>
                   </a>
-                  <a href={selectedCert.image} download className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm font-bold text-white shadow-lg transition">
+                  
+                  {/* DOWNLOAD BUTTON */}
+                  <a 
+                     href={selectedCert.file} 
+                     download 
+                     className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm font-bold text-white shadow-lg transition"
+                  >
                      <Download size={16} /> Download
                   </a>
                </div>
@@ -428,7 +645,6 @@ export default function DataFiles() {
   );
 }
 
-// --- HELPER COMPONENTS ---
 function ProfileCard({ title, handle, desc, icon, color, link }) {
   return (
     <a href={link} target="_blank" className={`relative p-6 rounded-xl border border-gray-800 bg-gray-900/50 hover:bg-gray-800 transition group overflow-hidden flex items-center gap-4`}>
@@ -446,7 +662,7 @@ function ProfileCard({ title, handle, desc, icon, color, link }) {
   );
 }
 
-// Updated MiniCard: Now shows Username/Handle
+
 function MiniCard({ title, handle, icon, link, color, iconSize=24, }) {
   return (
     <a href={link} target="_blank" className={`flex items-center gap-3 p-3 rounded-xl border border-gray-800 bg-gray-900/40 transition hover:bg-gray-800 ${color} hover:border-opacity-50 group`}>
@@ -495,4 +711,72 @@ function EmptyState({ icon, title, color }) {
             <p className="text-sm md:text-base text-gray-500">Access restricted. Content uploading...</p>
         </div>
     );
+}
+function Toast({ message }) {
+  if (!message) return null;
+  return (
+    <div className="fixed top-20 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-3 rounded-lg shadow-2xl z-[80] animate-in slide-in-from-top-5 fade-in duration-300 flex items-center gap-3 border border-red-500/50 backdrop-blur-md">
+      <AlertTriangle size={18} />
+      <span className="text-sm font-bold tracking-wide">{message}</span>
+    </div>
+  );
+}
+function CertSection({ title, subtitle, icon, items, onSelect }) {
+  if (items.length === 0) return null;
+
+  return (
+    <section>
+        <div className="mb-4 flex items-center gap-3 border-b border-gray-800 pb-2">
+            <div className="p-2 bg-gray-800 rounded-lg">
+                {icon}
+            </div>
+            <div>
+                <h2 className="text-xl font-bold text-white leading-none">{title}</h2>
+                <p className="text-gray-500 text-xs mt-1">{subtitle}</p>
+            </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {items.map((cert) => {
+                const hasLink = cert.link && cert.link !== '#';
+                
+                return (
+                <div 
+                    key={cert.id} 
+                    onClick={() => onSelect(cert)} 
+                    className={`relative bg-gray-900/80 border ${cert.color} border-opacity-30 hover:border-opacity-100 p-5 rounded-xl transition-all group overflow-hidden cursor-pointer`}
+                >
+                    <div className="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition">
+                        <BadgeCheck size={80} />
+                    </div>
+                    
+                    <div className="flex items-start justify-between relative z-10">
+                        <div className="flex items-center gap-3 mb-3">
+                            {cert.icon}
+                            <span className="bg-gray-800 text-[10px] px-2 py-1 rounded border border-gray-700 text-gray-400 font-mono">
+                                {cert.date}
+                            </span>
+                        </div>
+                        
+                        {/* Link Status Icon */}
+                        {hasLink ? (
+                            <ExternalLink size={16} className="text-gray-500 group-hover:text-blue-400 transition" />
+                        ) : (
+                            <Link2Off size={16} className="text-gray-700 group-hover:text-red-900 transition" />
+                        )}
+                    </div>
+
+                    <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition relative z-10">
+                        {cert.title}
+                    </h3>
+                    <p className="text-sm text-gray-400 relative z-10 flex items-center gap-2">
+                        <span className={`w-2 h-2 rounded-full ${cert.color.replace('border', 'bg')}`}></span>
+                        {cert.issuer} • {cert.code}
+                    </p>
+                </div>
+                );
+            })}
+        </div>
+    </section>
+  );
 }
