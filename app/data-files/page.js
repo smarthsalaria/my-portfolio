@@ -375,22 +375,28 @@ export default function DataFiles() {
                 onClick={e => e.stopPropagation()}
             >
 
-              {/* PREV BUTTON (Left) */}
+              {/* --- NAVIGATION ARROWS (Mobile Fixed) --- */}
+               
+               {/* PREV BUTTON (Left) */}
                <button 
                   onClick={(e) => { e.stopPropagation(); navigateCert('prev'); }}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 z-50 p-3 bg-black/50 hover:bg-emerald-500 text-white/50 hover:text-white rounded-full backdrop-blur-md transition-all border border-white/10 hover:border-emerald-400 group"
-                  title="Previous (Left Arrow)"
+                  className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-[70] p-3 rounded-full transition-all border group
+                    bg-gray-800 text-white border-gray-600 shadow-lg opacity-100   /* MOBILE STYLES (Solid & Visible) */
+                    md:bg-black/50 md:text-white/50 md:border-white/10 md:opacity-100 md:hover:bg-emerald-500 md:hover:text-white md:hover:border-emerald-400 /* DESKTOP STYLES (Subtle) */
+                  "
                >
-                  <ArrowLeft size={24} className="group-hover:-translate-x-1 transition" />
+                  <ArrowLeft size={24} className="md:group-hover:-translate-x-1 transition" />
                </button>
 
                {/* NEXT BUTTON (Right) */}
                <button 
                   onClick={(e) => { e.stopPropagation(); navigateCert('next'); }}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 z-50 p-3 bg-black/50 hover:bg-emerald-500 text-white/50 hover:text-white rounded-full backdrop-blur-md transition-all border border-white/10 hover:border-emerald-400 group"
-                  title="Next (Right Arrow)"
+                  className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-[70] p-3 rounded-full transition-all border group
+                    bg-gray-800 text-white border-gray-600 shadow-lg opacity-100   /* MOBILE STYLES */
+                    md:bg-black/50 md:text-white/50 md:border-white/10 md:opacity-100 md:hover:bg-emerald-500 md:hover:text-white md:hover:border-emerald-400 /* DESKTOP STYLES */
+                  "
                >
-                  <ArrowRight size={24} className="group-hover:translate-x-1 transition" />
+                  <ArrowRight size={24} className="md:group-hover:translate-x-1 transition" />
                </button>              
 
                {/* Header */}
