@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BentoGrid from '@/components/BentoGrid';
 import Card from '@/components/Card';
 import Intro from '@/components/Intro'; 
@@ -13,14 +13,28 @@ export default function Home() {
   const [showIntro, setShowIntro] = useState(false);
   const [isLoading, setIsLoading] = useState(true);  
 
-  
+  useEffect(() => {
+    const hasSeenIntro = localStorage.getItem('portfolio_intro_seen');
+
+    if (!hasSeenIntro) {
+      setShowIntro(true);
+    }
+        setIsLoading(false);
+  }, []);
+
+  const handleIntroComplete = () => {
+    localStorage.setItem('portfolio_intro_seen', 'true');
+    setShowIntro(false);
+  };
+
+  if (isLoading) return <div className="min-h-screen bg-black"></div>;
 
   const calculateTotalExperience = (work = []) => {
   let totalMonths = 0;
 
   const now = new Date();
   const currentYear = now.getFullYear();
-  const currentMonth = now.getMonth(); // 0-based
+  const currentMonth = now.getMonth(); 
 
   work.forEach((job) => {
     if (!job.startDate) return;
@@ -34,7 +48,7 @@ export default function Home() {
       endMonth = currentMonth;
     } else {
       [endYear, endMonth] = job.endDate.split("-").map(Number);
-      endMonth = endMonth - 1; // JS month is 0-based
+      endMonth = endMonth - 1; 
     }
 
     const months =
@@ -51,21 +65,18 @@ export default function Home() {
 
   const years = calculateTotalExperience(resumeData.work);
   
-
   return (
-    <main className="min-h-screen bg-black text-white relative font-sans">
+    <main className="min-h-screen bg-black text-white  font-sans w-full flex items-center justify-center p-4">
       
-      {/* 1. INTRO OVERLAY */}
+      {/* --- INTRO --- */}
       {showIntro && (
-        <Intro onComplete={() => setShowIntro(false)} />
+        <Intro onComplete={handleIntroComplete} />
       )}
 
-      {/* 2. MAIN CONTENT */}
       {!showIntro && (
-        <div className="animate-in fade-in duration-1000 py-12 px-4">
-          <div className="px-4 sm:px-8 md:px-20 lg:px-52">
+        <div className="animate-in fade-in duration-1000 py-12 px-4 mx-auto max-w-6xl px-[clamp(1rem,4vw,4rem)]">
           <div className="flex items-center justify-between mb-5">
-            <h1 className="text-4xl font-bold">
+            <h1 className="text-4xl font-bold text-white">
               Overview Portfolio
             </h1>
 
@@ -74,17 +85,15 @@ export default function Home() {
               //className="bg-blue-600 px-6 md:px-8 py-2 rounded-full text-center font-bold hover:bg-blue-500 transition shadow-lg shadow-blue-500/30 text-sm"
             >
               <button className="group flex items-center px-8 py-2 gap-2 bg-blue-600 hover:bg-blue-500 text-white cursor-pointer rounded-full border border-gray-700 transition-all shadow-lg shadow-blue-500/30">
-                Data Files
+                More
                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </button>
             </Link>
           </div>
-        </div>
-
           <BentoGrid>
             
             {/* --- PROFILE CARD --- */}
-            <Card className="md:col-span-2 md:row-span-2 bg-gradient-to-br from-blue-900 to-gray-900 justify-center">
+            <Card className="w-full md:col-span-2 md:row-span-2 bg-gradient-to-br from-blue-900 to-gray-900 justify-center">
               <div>
                 <h2 className="text-4xl font-bold mb-2">{resumeData.personal.name}</h2>
                 <p className="text-blue-300 text-xl">{resumeData.personal.role}</p>
@@ -104,7 +113,7 @@ export default function Home() {
               </div>
             </Card>
 
-            {/* --- EXPERIENCE STAT --- */}
+            {/* --- Total EXPERIENCE  --- */}
             <div className='grid grid-cols-2 gap-4 md:contents'>
               <Card className="md:col-span-1 md:row-span-1 flex items-center justify-center bg-gray-800 relative group">
                 <Briefcase className="w-8 h-8 text-emerald-400 absolute top-4 right-4 opacity-50 group-hover:opacity-100 transition" />
@@ -124,9 +133,8 @@ export default function Home() {
               </Card>
             </div>
 
-            {/* --- TECH STACK (UPDATED: Shows ALL skills) --- */}
-            {/* Search for: Tech Stack Card */}
-            <Card className="md:col-span-2 md:row-span-1 justify-center overflow-y-auto custom-scrollbar p-1 pl-4">
+            {/* Tech Stack Card */}
+            <Card className="md:col-span-2 md:row-span-1 justify-center overflow-y-auto custom-scrollbar p-1 pl-4 ">
                 <h3 className="
                   sticky top-0 z-10
                   text-lg font-semibold text-gray-300
@@ -137,7 +145,6 @@ export default function Home() {
                 </h3>
 
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {/* Combine all skills and map them ALL (removed .slice) */}
                   {[
                     ...resumeData.skills.frontend, 
                     ...resumeData.skills.backend,
@@ -164,10 +171,10 @@ export default function Home() {
                ))}
             </Card>
 
-            {/* --- WORK HISTORY --- */}
+            {/* --- WORK Experience --- */}
             <Card className="md:col-span-2 md:row-span-2 overflow-y-auto custom-scrollbar relative pt-0 pl-4">
               {/* FIX: Added 'z-10' so text scrolls BEHIND the header, not over it */}
-              <h3 className="text-xl font-bold mb-6 flex items-center gap-2 sticky top-0 bg-gray-900 py-3 z-15 border-b border-gray-800">
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-2 sticky top-0 bg-gray-900 py-3 z-15 border-b border-gray-800 text-gray-300">
                 <Server /> Work Experience
               </h3>
               
@@ -175,15 +182,12 @@ export default function Home() {
                 {resumeData.work.map((job) => (
                   <div key={job.id} className="border-l-2 border-gray-700 pl-6 relative">
                     
-                    {/* Timeline Dot */}
                     <div className="absolute w-3 h-3 bg-blue-500 rounded-full -left-[7px] top-1.5 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
                     
-                    {/* Header: Logo + Role */}
                     <div className="flex items-center gap-4 mb-2">
-                       {/* Company Logo */}
+
                        <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center overflow-hidden shrink-0 border border-gray-600">
-                          {/* We use a standard img tag for simplicity. 
-                              If the logo is missing, the 'alt' text will show. */}
+                      
                           <Image
                             src={job.logo || "/placeholder.png"}
                             alt={job.company}
@@ -209,7 +213,6 @@ export default function Home() {
             </Card>
 
             {/* --- CERTIFICATIONS --- */}
-            {/* Search for: Certifications Card */}
             <Card className="md:col-span-2 md:row-span-1 bg-gray-800 overflow-y-auto custom-scrollbar p-0 pl-4">
                <h3 className="sticky top-0 z-10 text-lg font-bold flex items-center gap-2 text-gray-200 bg-gray-800 px-4 py-2">
                  Certifications
@@ -234,9 +237,15 @@ export default function Home() {
                   ))}
                </div>
             </Card>
-
           </BentoGrid>
+          <div className="w-full text-center py-8 mt-8 border-t border-gray-900">
+             <p className="text-gray-300 text-xs font-mono uppercase tracking-widest">
+               Designed & Developed by Smarth Salaria
+             </p>
+             <p className="text-gray-400 text-[10px] mt-1">© 2026 // ALL RIGHTS RESERVED</p>
+          </div>
         </div>
+        
       )}
     </main>
   );

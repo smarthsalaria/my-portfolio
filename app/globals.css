@@ -1,30 +1,65 @@
 @import "tailwindcss";
 
+.site-wrapper {
+  transform: scale(0.8);
+  transform-origin: top center;
+}
+
 
 @layer utilities {
-  /* Define a custom class named '.custom-scrollbar' */
-  
+
   .custom-scrollbar::-webkit-scrollbar {
-    width: 6px; /* Thin width */
+    width: 6px; 
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: #1f2937; /* Dark background (matches gray-800) */
+    background: #1f2937; 
     border-radius: 10px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #4b5563; /* Lighter gray handle */
+    background: #4b5563; 
     border-radius: 10px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #6b7280; /* Even lighter on hover */
+    background: #6b7280; 
   }
 
-  /* Firefox Support */
   .custom-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: #4b5563 #1f2937;
   }
+}
+/* --- FLOATING MINIMALIST SCROLLBAR --- */
+
+::-webkit-scrollbar {
+  width: 10px; /* Slightly wider to allow for the transparency trick */
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  margin-top: 10px;    /* Pushes scrollbar down from the top edge */
+  margin-bottom: 10px; /* Pushes scrollbar up from the bottom edge */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15); /* Subtle grey */
+  border-radius: 99px; /* Pill shape */
+  
+  /* The Magic Trick: Transparent border creates 'padding' around the bar */
+  border: 3px solid transparent; 
+  background-clip: content-box; /* This forces the color to stay INSIDE the border */
+  transition: background-color 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.4); /* Brighter when grabbed */
+}
+
+/* Firefox Support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
 }
