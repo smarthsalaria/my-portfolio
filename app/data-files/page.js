@@ -2,9 +2,10 @@
 import { useState, useEffect } from 'react';
 import { Folder, Award, FileText, User, ArrowLeft, Github, Discord, Linkedin, ExternalLink, X, Menu, Lock, Unlock, AlertTriangle, BadgeCheck, Eye, Download } from 'lucide-react';
 import Link from 'next/link';
-import {  Link2Off, Link as LinkIcon, GraduationCap, Scroll } from 'lucide-react'; 
+import {  Link2Off, Link as LinkIcon, GraduationCap, Scroll, Cpu, Server, Code2, Terminal, Database, Globe, Cloud, Wrench } from 'lucide-react'; 
 import dynamic from 'next/dynamic';
-// This tells Next.js: "Do not touch this file on the server, wait for the browser"
+import { certifications } from '@/data/certifications';
+
 const PdfViewer = dynamic(() => import('@/components/PdfViewer'), { 
   ssr: false,
   loading: () => <div className="text-gray-500 text-sm text-center py-10">Loading Viewer...</div>
@@ -80,133 +81,9 @@ export default function DataFiles() {
     { id: 'profiles', icon: <User size={20} />, label: 'Socials', angle: -60, color: 'text-blue-400', border: 'border-blue-500' },
     { id: 'projects', icon: <Folder size={20} />, label: 'Projects', angle: -20, color: 'text-purple-400', border: 'border-purple-500' },
     { id: 'certificates', icon: <Award size={20} />, label: 'Awards', angle: 20, color: 'text-emerald-400', border: 'border-emerald-500' },
-    { id: 'documents', icon: <FileText size={20} />, label: 'Docs', angle: 60, color: 'text-yellow-400', border: 'border-yellow-500' },
-  ];
+    { id: 'about', label: 'About', icon: <Cpu size={24} />, angle: 60, color: 'text-yellow-400', border: 'border-yellow-500' },  ];
 
-  const certifications = [
-    {
-      id: 1,
-      category: "professional", 
-      title: "Microsoft Certified: Azure Fundamentals",
-      issuer: "Microsoft",
-      code: "AZ-900",
-      date: "2024",
-      icon: <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" className="w-8 h-8" />,
-      link: "https://learn.microsoft.com/api/credentials/share/en-us/smarthsalaria/D926472C09CAEE59?sharingId=79851582C16A4478", 
-      file: "/my-portfolio/certificates/az900.pdf",
-      color: "border-blue-500"
-    },
-    {
-      id: 2,
-      category: "professional", 
-      title: "Microsoft Certified: Azure Administrator Associate",
-      issuer: "Microsoft",
-      code: "AZ-900",
-      date: "2024 - 2026",
-      icon: <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" className="w-8 h-8" />,
-      link: "https://learn.microsoft.com/api/credentials/share/en-us/smarthsalaria/F27B9E6BCA6B1292?sharingId=79851582C16A4478", 
-      file: "/my-portfolio/certificates/az104.pdf",
-      color: "border-blue-500"
-    },
-    {
-      id: 3,
-      category: "professional",
-      title: "Version Control",
-      issuer: "Coursera | Meta",
-      code: "Course",
-      date: "2024",
-      icon: <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Coursera-Logo_600x600.svg" alt="Coursera" className="w-8 h-8 rounded-full bg-white p-1" />,
-      link: "https://coursera.org/share/e7a2d93a3836a18253e2cf4db4248668",
-      file: "/my-portfolio/certificates/vc.pdf",
-      color: "border-blue-500"
-    },
-    {
-      id: 4,
-      category: "professional",
-      title: "Basics React",
-      issuer: "Coursera | Meta",
-      code: "Course",
-      date: "2024",
-      icon: <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Coursera-Logo_600x600.svg" alt="Coursera" className="w-8 h-8 rounded-full bg-white p-1" />,
-      link: "https://coursera.org/share/1075012ad3e58d26580053b8e67461d1",
-      file: "/my-portfolio/certificates/br.pdf",
-      color: "border-blue-500"
-    },
-    {
-      id: 5,
-      category: "professional",
-      title: "Advanced React",
-      issuer: "Coursera | Meta",
-      code: "Course",
-      date: "2025",
-      icon: <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Coursera-Logo_600x600.svg" alt="Coursera" className="w-8 h-8 rounded-full bg-white p-1" />,
-      link: "https://coursera.org/share/5ff22c804e577c308da646e6779e9908",
-      file: "/my-portfolio/certificates/ar.pdf",
-      color: "border-blue-500"
-    },
-
-    {
-      id: 6,
-      category: "university",
-      title: "Bachelor of Engineering: Internet of Things",
-      issuer: "Chandigarh University, Mohali",
-      code: "Computer Science & Engineering",
-      date: "2018 - 2022",
-      icon: <img src='/my-portfolio/logos/culogo_1.png' alt="Chandigarh University Logo" className='w-8 h-12 bg-gray p-0 '/>,
-      link: "#", 
-      file: "/my-portfolio/certificates/cu.jpg",
-      color: "border-gray-700"
-    },
-    {
-      id: 7,
-      category: "other",
-      title: "Python 3: Deep Dive (Part 1- Functional)",
-      issuer: "Udemy",
-      code: "Course | Chandigarh Univeristy",
-      date: "2021",
-      icon: <Scroll className="w-8 h-8 text-emerald-400" />,
-      link: "ude.my/UC-48332433-b730-42d1-a3de-f986cf3e9d3a", 
-      file: "/my-portfolio/certificates/python.pdf",
-      color: "border-emerald-500"
-    },
-    {
-      id: 8,
-      category: "other",
-      title: "Algorithms on Graphs",
-      issuer: "Coursera",
-      code: "Course | Chandigarh University",
-      date: "2020",
-      icon: <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Coursera-Logo_600x600.svg" alt="Coursera" className="w-8 h-8 rounded-full bg-white p-1" />,
-      link: "https://coursera.org/share/4fcd22d2fcd377d4f2b61f5f69945065", 
-      file: "/my-portfolio/certificates/algo.pdf",
-      color: "border-emerald-500"
-    },
-
-    {
-      id: 9,
-      category: "other",
-      title: "Internet of Things",
-      issuer: "Verzeo",
-      code: "Workshop | Chandigarh University",
-      date: "2021",
-      icon: <Scroll className="w-8 h-8 text-emerald-400" />,
-      link: "#",
-      file: "/my-portfolio/certificates/iot.jpg",
-      color: "border-emerald-500"
-    },
-    {
-      id: 10,
-      category: "other",
-      title: "Web Development",
-      issuer: "Bolt TechnoShots program",
-      code: "Workshop | Chandigarh University",
-      date: "2020",
-      icon: <Scroll className="w-8 h-8 text-emerald-400" />,
-      link: "#",
-      file: "/my-portfolio/certificates/Web.pdf",
-      color: "border-emerald-500"
-    }
-  ];
+  
 
   if (!isAuthenticated) {
     return (
@@ -270,6 +147,34 @@ export default function DataFiles() {
       </div>
     );
   }
+
+  // --- PORTFOLIO TECH STACK DATA ---
+  const portfolioStack = {
+    core: [
+      { name: "Next.js 16", icon: "N", color: "text-white", desc: "App Router" },
+      { name: "React 19", icon: "⚛", color: "text-cyan-400", desc: "Server Components" },
+      { name: "Tailwind CSS", icon: "≋", color: "text-cyan-300", desc: "Utility Styling" },
+      { name: "JavaScript", icon: "JS", color: "text-yellow-400", desc: "ES6+ Logic" },
+    ],
+    ui: [
+      { name: "Lucide React", icon: "✒", color: "text-pink-400", desc: "Vector Icons" },
+      { name: "React PDF", icon: "📄", color: "text-red-500", desc: "PDF Rendering" },
+      { name: "PDF.js Worker", icon: "⚙", color: "text-orange-400", desc: "Doc Processing" },
+      { name: "Tailwind Animate", icon: "✨", color: "text-purple-400", desc: "Keyframe plugin" },
+    ],
+    utilities: [
+      { name: "Clsx", icon: "cx", color: "text-blue-300", desc: "Conditionals" },
+      { name: "Tailwind Merge", icon: "tm", color: "text-blue-500", desc: "Class Conflict" },
+      { name: "PostCSS", icon: "P", color: "text-pink-600", desc: "CSS Transpiler" },
+      { name: "Turbopack", icon: "⚡", color: "text-red-400", desc: "Bundler" },
+    ],
+    infrastructure: [
+      { name: "GitHub Pages", icon: "🐙", color: "text-white", desc: "Static Hosting" },
+      { name: "GitHub Actions", icon: "▶", color: "text-green-500", desc: "CI/CD Pipeline" },
+      { name: "Umami Cloud", icon: "U", color: "text-indigo-400", desc: "Privacy Analytics" },
+      { name: "Node", icon: "⬢", color: "text-yellow-200", desc: "Package Manager" },
+    ]
+  };
 
   return (
     <div className="min-h-screen bg-black text-white font-sans overflow-hidden relative selection:bg-blue-500/30">
@@ -497,16 +402,68 @@ export default function DataFiles() {
         </div>
       )}
 
-            {/* --- DOCUMENTS --- */}
-            {activeTab === 'documents' && <EmptyState icon={<FileText size={64}/>} title="Documentation" color="text-yellow-400" />}
+            {/* --- ABOUT / SYSTEM SPECS TAB --- */}
+            {activeTab === 'about' && (
+              <div className="w-full animate-in zoom-in duration-500 space-y-8">
+                
+                {/* Header */}
+                <div className="flex items-center gap-4">
+                    <div className="p-3 bg-yellow-500/20 rounded-xl border border-yellow-500/50">
+                        <Cpu className="w-8 h-8 text-yellow-400" />
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold text-white">About Portfolio Project</h2>
+                        <p className="text-gray-400 text-sm">Tools, Libraries, Frameworks, and more used...</p>
+                    </div>
+                </div>
 
-            {/* Footer */}
-            <div className="w-full text-center py-12 mt-8 opacity-50">
-               <p className="text-gray-100 text-xs font-mono uppercase tracking-widest">
-                 Designed & Developed by Smarth Salaria
-               </p>
-               <p className="text-gray-400 text-[10px] mt-1">© 2026 // ALL RIGHTS RESERVED</p>
-            </div>
+                {/* MAIN GRID: 1 Column on Mobile, 2 Columns on Desktop */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    
+                    {/* 1. CORE FRAMEWORK */}
+                    <StackSection 
+                        title="Core Framework" 
+                        icon={<Terminal size={18} />} 
+                        items={portfolioStack.core} 
+                        color="border-cyan-500"
+                    />
+
+                    {/* 2. INTERFACE & ENGINES */}
+                    <StackSection 
+                        title="Interface & Engines" 
+                        icon={<Code2 size={18} />} 
+                        items={portfolioStack.ui} 
+                        color="border-pink-500"
+                    />
+
+                    {/* 3. DEV TOOLS & UTILITIES */}
+                    <StackSection 
+                        title="Dev Tools & Utilities" 
+                        icon={<Wrench size={18} />} 
+                        items={portfolioStack.utilities} 
+                        color="border-orange-500"
+                    />
+
+                    {/* 4. CLOUD & DEPLOYMENT */}
+                    <StackSection 
+                        title="Cloud & Deployment" 
+                        icon={<Cloud size={18} />} 
+                        items={portfolioStack.infrastructure} 
+                        color="border-indigo-500"
+                    />
+
+                </div>
+                
+                {/* Footer */}
+                <div className="pt-8 border-t border-gray-800 text-center">
+                    <p className="text-gray-600 text-xs font-mono mb-2">BUILD_ID: 2026.01.ALPHA</p>
+                    <p className="text-gray-500 text-sm">
+                        Designed & Developed by <span className="text-white font-bold">Smarth Salaria</span>
+                    </p>
+                </div>
+
+              </div>
+            )}
             
         </div>
       </div>
@@ -724,6 +681,37 @@ function EmptyState({ icon, title, color }) {
         </div>
     );
 }
+
+function StackSection({ title, icon, items, color }) {
+    return (
+        <section className="bg-gray-900/40 rounded-xl border border-gray-800 p-5 relative overflow-hidden h-full">
+             {/* Decorative Top Line */}
+            <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-${color.replace('border-', '')} to-transparent opacity-50`}></div>
+
+            <h3 className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                {icon} {title}
+            </h3>
+
+            {/* Internal Grid: Fixed to 2 columns because the card itself is now smaller */}
+            <div className="grid grid-cols-2 gap-3">
+                {items.map((item, idx) => (
+                    <div key={idx} className="flex flex-col items-center justify-center p-3 rounded-lg bg-black/30 border border-gray-800/50 hover:border-gray-600 transition group text-center">
+                        {/* Icon Box */}
+                        <div className={`w-8 h-8 mb-2 rounded flex items-center justify-center font-bold text-sm bg-gray-800 group-hover:bg-gray-700 transition ${item.color}`}>
+                            {item.icon}
+                        </div>
+                        {/* Text Info */}
+                        <div>
+                             <span className="text-xs text-white font-bold block leading-tight">{item.name}</span>
+                             <span className="text-[10px] text-gray-400 font-mono uppercase tracking-wide opacity-100">{item.desc}</span>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+}
+
 function Toast({ message }) {
   if (!message) return null;
   return (

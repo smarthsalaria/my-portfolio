@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, React } from 'react';
 import BentoGrid from '@/components/BentoGrid';
 import Card from '@/components/Card';
 import Intro from '@/components/Intro'; 
@@ -7,7 +7,8 @@ import resumeData from '@/data/resume.json';
 import { MapPin, Briefcase, Cpu, Server, Github, Linkedin, Mail, Phone, ExternalLink } from 'lucide-react';
 import Image from "next/image";
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { Award, ArrowRight } from 'lucide-react';
+import { certifications } from '@/data/certifications';
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(false);
@@ -213,30 +214,65 @@ export default function Home() {
             </Card>
 
             {/* --- CERTIFICATIONS --- */}
-            <Card className="md:col-span-2 md:row-span-1 bg-gray-800 overflow-y-auto custom-scrollbar p-0 pl-4">
-               <h3 className="sticky top-0 z-10 text-lg font-bold flex items-center gap-2 text-gray-200 bg-gray-800 px-4 py-2">
-                 Certifications
-               </h3>
-               <div className="grid grid-cols-1 gap-3">
-                  {resumeData.certifications.map((cert, idx) => (
-                    <a 
-                      key={idx} 
-                      href={cert.url} 
-                      target="_blank"
-                      className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-700 transition group"
-                    >
-                        <div className="flex items-center gap-3">
-                            <div className="w-2 h-2 bg-emerald-500 rounded-full shrink-0"></div>
-                            <div>
-                                <p className="text-sm font-semibold text-white group-hover:text-blue-400 transition">{cert.name}</p>
-                                <p className="text-xs text-gray-500">{cert.issuer}</p>
-                            </div>
+            {/* --- DYNAMIC CERTIFICATES CARD --- */}
+        {/* --- DYNAMIC CERTIFICATES CARD --- */}
+        <card className="md:col-span-2 md:row-span-1 bg-gray-900 border border-gray-800 rounded-2xl p-0 flex flex-col overflow-hidden relative group hover:border-emerald-500/50 transition-all duration-300">
+           
+           {/* Header with Link */}
+           <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-900 z-10">
+              <div className="flex items-center gap-2">
+                 <Award className="text-emerald-400" size={20} />
+                 <h3 className="text-lg font-bold text-gray-200">Latest Credentials</h3>
+              </div>
+              <Link 
+                  href="/data-files" 
+                  onClick={() => sessionStorage.setItem('data_sys_tab', 'certificates')}
+                  className="text-xs text-gray-500 hover:text-emerald-400 flex items-center gap-1 transition"
+              >
+                  View All ({certifications.length}) <ArrowRight size={14} />
+              </Link>
+           </div>
+
+           {/* Scrollable List Area */}
+           <div className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-2 z-10">
+              {/* We show all certs here since it scrolls, or slice(0,4) if you want it fixed */}
+              {certifications.map((cert) => (
+                 <Link 
+                    key={cert.id}
+                    href="/data-files"
+                    onClick={() => {
+                        sessionStorage.setItem('data_sys_tab', 'certificates');
+                        // Optional: If you want to auto-open this specific cert in the modal
+                        // sessionStorage.setItem('data_sys_cert_id', cert.id); 
+                    }}
+                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-emerald-500/10 transition group/item cursor-pointer border border-transparent hover:border-emerald-500/20"
+                 >
+                    {/* Icon Box */}
+                    <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center shrink-0 border border-gray-700 text-emerald-400 group-hover/item:scale-110 transition">
+                       {/* Clone the icon with a smaller size for this list */}
+                       {/* Just force a small size on the wrapper div instead */}
+                        <div className="[&>svg]:w-4 [&>svg]:h-4">
+                            {cert.icon}
                         </div>
-                        <ExternalLink size={16} className="text-gray-500 opacity-0 group-hover:opacity-100 transition shrink-0" />
-                    </a>
-                  ))}
-               </div>
-            </Card>
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                       <h4 className="text-sm font-semibold text-gray-200 truncate group-hover/item:text-emerald-400 transition">
+                          {cert.title}
+                       </h4>
+                       <p className="text-xs text-gray-500 truncate">{cert.issuer}</p>
+                    </div>
+
+                    <ArrowRight size={14} className="text-gray-600 opacity-0 group-hover/item:opacity-100 -translate-x-2 group-hover/item:translate-x-0 transition duration-300" />
+                 </Link>
+              ))}
+           </div>
+
+           {/* Decorative Background Icon */}
+           <div className="absolute bottom-0 right-0 opacity-[0.03] pointer-events-none group-hover:opacity-[0.06] transition duration-500">
+              <Award size={120} />
+           </div>
+        </card>
           </BentoGrid>
           <div className="w-full text-center py-8 mt-8 border-t border-gray-900">
              <p className="text-gray-300 text-xs font-mono uppercase tracking-widest">
