@@ -24,23 +24,6 @@
       "year": "2018 - 2022"
     }
   ],
-  "certifications": [
-    {
-      "name": "Advanced React",
-      "issuer": "Meta",
-      "url": "https://www.coursera.org/account/accomplishments/records/GES4UVRPE886"
-    },
-    {
-      "name": "Microsoft Certified: Azure Fundamentals",
-      "issuer": "Microsoft Learn",
-      "url": "https://learn.microsoft.com/api/credentials/share/en-us/smarthsalaria/D926472C09CAEE59?"
-    },
-    {
-      "name": "Microsoft Certified: Azure Administrator Associate",
-      "issuer": "Microsoft Learn",
-      "url": "https://learn.microsoft.com/api/credentials/share/en-us/smarthsalaria/F27B9E6BCA6B1292?"
-    }
-  ],
   "work": [
     {
       "id": 1,

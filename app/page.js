@@ -144,8 +144,8 @@ export default function Home() {
                 ">
                   <Cpu size={18} /> Core Technologies
                 </h3>
+                <div className=" overflow-y-auto custom-scrollbar p-1 space-y-1 flex flex-wrap gap-2">
 
-                <div className="mt-4 flex flex-wrap gap-2">
                   {[
                     ...resumeData.skills.frontend, 
                     ...resumeData.skills.backend,
@@ -173,13 +173,11 @@ export default function Home() {
             </Card>
 
             {/* --- WORK Experience --- */}
-            <Card className="md:col-span-2 md:row-span-2 overflow-y-auto custom-scrollbar relative pt-0 pl-4">
-              {/* FIX: Added 'z-10' so text scrolls BEHIND the header, not over it */}
+            <Card className="md:col-span-2 md:row-span-2 overflow-y-auto  relative pt-0 pl-4">
               <h3 className="text-xl font-bold mb-6 flex items-center gap-2 sticky top-0 bg-gray-900 py-3 z-15 border-b border-gray-800 text-gray-300">
                 <Server /> Work Experience
               </h3>
-              
-              <div className="space-y-8 px-2">
+              <div className=" overflow-y-auto custom-scrollbar space-y-4 px-2 flex flex-wrap gap-2">
                 {resumeData.work.map((job) => (
                   <div key={job.id} className="border-l-2 border-gray-700 pl-6 relative">
                     
@@ -236,7 +234,7 @@ export default function Home() {
            {/* Scrollable List Area */}
            <div className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-2 z-10">
               {/* We show all certs here since it scrolls, or slice(0,4) if you want it fixed */}
-              {certifications.map((cert) => (
+              {certifications.slice(0,4).map((cert) => (
                  <Link 
                     key={cert.id}
                     href="/data-files"
@@ -250,7 +248,6 @@ export default function Home() {
                     {/* Icon Box */}
                     <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center shrink-0 border border-gray-700 text-emerald-400 group-hover/item:scale-110 transition">
                        {/* Clone the icon with a smaller size for this list */}
-                       {/* Just force a small size on the wrapper div instead */}
                         <div className="[&>svg]:w-4 [&>svg]:h-4">
                             {cert.icon}
                         </div>
