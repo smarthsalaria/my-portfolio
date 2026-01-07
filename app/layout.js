@@ -3,7 +3,7 @@ import Script from 'next/script';
 
 export const metadata = {
   title: 'Smarth Salaria | Portfolio',
-  description: 'Control Systems Engineer & Full Stack Developer',
+  description: 'Senior Automation/EMS Engineer Portfolio',
 };
 
 export default function RootLayout({ children }) {

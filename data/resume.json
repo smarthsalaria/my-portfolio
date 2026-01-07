@@ -1,10 +1,10 @@
 {
   "personal": {
     "name": "Smarth Salaria",
-    "role": "Software/Automation Engineer| Control System Engineer | Senior Engineer",
+    "role": "Senior Automation/ EMS System Engineer",
     "location": "Pune, India",
     "totalExperience": "3.5+ Years",
-    "bio": "Control Systems - Senior Engineer with 3.5+ years of work experience in Operation Technology includes Controllers like EMS, PPC, HEMS, PLC and SCADA System. From Experience in system architecture design, controlling logic development, system testing (FAT, SAT, HIL), and Project Engineering for grid-scale solar renewable and battery storage projects.",
+    "bio": "Industrial Automation/EMS Systems Engineer with over 3.5 years of experience in the solution delivery of Energy Management Systems (EMS), Power Plant Controllers (PPC), and SCADA solutions. Specialized in grid-scale  renewable and battery storage projects, with expertise spanning system architecture, control logic development, and comprehensive validation (HIL, FAT, SAT) including compliance with the Indian Grid Code.",
     "socials": {
       "github": "https://github.com/smarthsalaria",
       "linkedin": "https://linkedin.com/in/smarthsalaria",
@@ -14,8 +14,8 @@
   },
   "skills": {
     "frontend": ["React", "Next.js", "Tailwind CSS"],
-    "backend": ["Node.js", "Python", "Java", "MySQL"],
-    "ot_tech": ["SCADA", "PLC Logic", "Modbus TCP/IP", "EMS", "IEC 104", "IEC 61850", "MATLAB/Simulink"]
+    "backend": ["Node.js", "Python", "Project Engineering", "MySQL", "Linux", "Azure VM's"],
+    "ot_tech": ["SCADA", "PLC Logic", "Modbus TCP/IP", "EMS", "PPC", "IEC 104", "IEC 61850", "MATLAB/Simulink"]
   },
   "education": [
     {
@@ -32,7 +32,7 @@
       "period": "June 2025 - Present",
       "startDate": "2025-06",
       "endDate": "present",
-      "description": "Developing the EMS Controller for the BESS Utily Grid Projects from business requirements, designing to development.",
+      "description": "Leading and supporting the development of EMS product for the standalone bess parks and integrated solar and BESS power parks.",
       "logo": "/my-portfolio/logos/premier.jpg"
     },
     {
@@ -42,7 +42,7 @@
       "period": "Jan 2025 - Apr 2025",
       "startDate": "2025-01",
       "endDate": "2025-04",
-      "description": "Worked on the Project Engineering for the 70MW/140MWh Battery Energy Storage System.",
+      "description": "Contributed to the engineering and delivery of a 70 MW / 140 MWh standalone BESS project by designing EMS/SCADA system architecture, control strategies, safety interlocks, and coordinating technical documentation and vendor compliance.",
       "logo": "/my-portfolio/logos/anvi.jpg"
     },
     {
@@ -52,7 +52,7 @@
       "period": "Jul 2022 - Dec 2024",
       "startDate": "2022-07",
       "endDate": "2024-12",
-      "description": "Worked on the Project Engineering for the 35MW + 57MWh Solar + Battery Hybrid Power Plant, 210MW + 30MVar Solar + Capbank Power Plant, 700MW Solar Power Plant.",
+      "description": "Engineered, tested, and commissioned SCADA, PPC, and HEMS systems for large-scale Solar and Solar + BESS projects, integrating industrial communication protocols and automation tools to ensure grid compliance, reliable remote operation, and high-performance plant control across multiple utility-scale deployments.",
       "logo": "/my-portfolio/logos/lnt.svg"
     }
   ]

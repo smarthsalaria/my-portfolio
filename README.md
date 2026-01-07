@@ -66,8 +66,10 @@
 ├── next.config.mjs           # Next.js Configuration (Static Export settings)
 └── tailwind.config.mjs       # Theme & Animation Config
 
+---
 
-⚡ Getting Started
+
+##⚡ Getting Started
 1. Prerequisites
 Ensure you have Node.js (v18+) 
 
