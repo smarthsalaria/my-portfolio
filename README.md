@@ -68,7 +68,7 @@
 
 ```
 
-##⚡ Getting Started
+⚡ Getting Started
 1. Prerequisites
 Ensure you have Node.js (v18+) 
 
@@ -89,7 +89,7 @@ npm run dev
 Open http://localhost:3000 to view the system.
 ```
 
-##🔧 How to Update Data
+🔧 How to Update Data
 Adding a New Certificate
 Upload your PDF/Image to public/certificates/.
 
@@ -128,5 +128,5 @@ const nextConfig = {
   images: { unoptimized: true }, // Required for static export
 };
 ```
-📜 License
-Designed & Developed by Smarth Salaria. © 2025 All Rights Reserved.
+📜 Apache License
+Designed & Developed by Smarth Salaria. © 2025.
