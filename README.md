@@ -68,7 +68,7 @@
 
 ```
 
-⚡ Getting Started
+### ⚡ Getting Started
 1. Prerequisites
 Ensure you have Node.js (v18+) 
 
@@ -89,7 +89,7 @@ npm run dev
 Open http://localhost:3000 to view the system.
 ```
 
-🔧 How to Update Data
+### 🔧 How to Update Data
 Adding a New Certificate
 Upload your PDF/Image to public/certificates/.
 
@@ -111,7 +111,7 @@ Add a new entry to the array:
 ```
 The Home page and Data Files page will automatically update.
 
-🚢 Deployment (GitHub Pages)
+### 🚢 Deployment (GitHub Pages)
 This project is configured for Static Export.
 
 Push changes to the main branch.
@@ -128,5 +128,4 @@ const nextConfig = {
   images: { unoptimized: true }, // Required for static export
 };
 ```
-📜 Apache License
-Designed & Developed by Smarth Salaria. © 2025.
+# © 2025 Smarth Salaria. All work designed and developed by Smarth Salaria.
