@@ -128,4 +128,4 @@ const nextConfig = {
   images: { unoptimized: true }, // Required for static export
 };
 ```
-# © 2025 Smarth Salaria. All work designed and developed by Smarth Salaria.
+### © 2025 Smarth Salaria. All work designed and developed by Smarth Salaria.
