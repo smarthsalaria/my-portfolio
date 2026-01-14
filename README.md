@@ -68,28 +68,28 @@
 
 ```
 
-###⚡ Getting Started
+##⚡ Getting Started
 1. Prerequisites
 Ensure you have Node.js (v18+) 
 
 2. Installation
 Clone the repository and install dependencies:
 
-Bash
-
-git clone [https://github.com/smarthsalaria/my-portfolio.git](https://github.com/smarthsalaria/my-portfolio.git)
+```Bash
+git clone [https://github.com/smarthsalaria/my-portfolio.git]
 cd my-portfolio
 npm install
-
+```
 3. Running Locally
 Start the development server with Turbopack:
 
-Bash
+```Bash
 
 npm run dev
 Open http://localhost:3000 to view the system.
+```
 
-🔧 How to Update Data
+##🔧 How to Update Data
 Adding a New Certificate
 Upload your PDF/Image to public/certificates/.
 
@@ -97,7 +97,7 @@ Open app/data/certifications.js.
 
 Add a new entry to the array:
 
-JavaScript
+```JavaScript
 
 {
   id: 10,
@@ -108,6 +108,7 @@ JavaScript
   file: "/certificates/new-cert.pdf", // Path to your file
   color: "border-blue-500"
 }
+```
 The Home page and Data Files page will automatically update.
 
 🚢 Deployment (GitHub Pages)
@@ -119,12 +120,13 @@ GitHub Actions will automatically build and deploy to the gh-pages branch.
 
 Ensure your next.config.mjs has the correct basePath if serving from a subdirectory.
 
-JavaScript
+```JavaScript
 
 const nextConfig = {
   output: "export",  // Required for GitHub Pages
   basePath: "/my-portfolio", // Change to your repo name
   images: { unoptimized: true }, // Required for static export
 };
+```
 📜 License
 Designed & Developed by Smarth Salaria. © 2025 All Rights Reserved.
